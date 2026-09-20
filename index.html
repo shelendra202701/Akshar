@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>अक्षर (Akshar) - 7-पेज सचित्र कॉमिक्स एवं सिनेमैटिक ई-पुस्तकालय</title>
+  <title>अक्षर (Akshar) - 7-पेज सचित्र कॉमिक्स एवं ऑटो-टर्न सिनेमैटिक ऑडियो</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+Devanagari:wght@500;600;700;800&family=Rozha+One&display=swap" rel="stylesheet">
@@ -239,8 +239,8 @@
 
   <!-- Top Announcement Bar -->
   <div class="top-bar">
-    <span>🎧 7-पेज सचित्र कॉमिक्स + ऑटो BGM और AI वॉइस लाइव • अक्षर डिजिटल स्टोर</span>
-    <span>संस्करण 2026</span>
+    <span>🎧 ऑटो-पेज फ्लिप + सिनेमैटिक ऑडियो एवं बैकग्राउंड म्यूजिक लाइव!</span>
+    <span>अक्षर डिजिटल स्टोर 2026</span>
   </div>
 
   <!-- Header -->
@@ -269,7 +269,7 @@
     <div class="sub-bar">
       <div class="sub-bar-inner">
         <button class="cat-btn active" onclick="filterCategory('all', this)">सभी संग्रह</button>
-        <button class="cat-btn" onclick="filterCategory('comics', this)">🎨 7-पेज कॉमिक्स (ऑडियो + BGM)</button>
+        <button class="cat-btn" onclick="filterCategory('comics', this)">🎨 7-पेज कॉमिक्स (ऑटो-टर्न)</button>
         <button class="cat-btn" onclick="filterCategory('selfhelp', this)">🧘 आत्मविकास ई-बुक्स</button>
         <button class="cat-btn" onclick="filterCategory('career', this)">💼 करियर व नौकरी</button>
         <button class="cat-btn" onclick="filterCategory('finance', this)">💰 पैसे और बचत</button>
@@ -284,7 +284,7 @@
     <!-- Hero Banner -->
     <div class="hero-strip">
       <h2>पढ़िए, सीखिए, <br><span>अपने सपनों को उड़ान दीजिए</span></h2>
-      <p>हिंदी में 7-पृष्ठीय सचित्र कॉमिक्स, ऑटो-बैकग्राउंड म्यूज़िक (फनी व सस्पेंस), AI आवाज़ और ई-पुस्तकों का आधुनिक संसार।</p>
+      <p>हिंदी में 7-पृष्ठीय सचित्र कॉमिक्स, ऑटोमैटिक पेज फ्लिप (पन्ने पलटना), अडैप्टिव बैकग्राउंड म्यूजिक और ई-पुस्तकों का आधुनिक संसार।</p>
     </div>
 
     <!-- Section Heading -->
@@ -363,7 +363,7 @@
     </div>
   </div>
 
-  <!-- MODAL: MULTI-PAGE ILLUSTRATED COMIC / E-BOOK READER WITH AUTO BGM -->
+  <!-- MODAL: MULTI-PAGE ILLUSTRATED COMIC / E-BOOK READER WITH AUTO BGM & AUTO-FLIP -->
   <div class="modal-overlay" id="multiPageReaderModal">
     <div class="modal-sheet">
       <button class="modal-close-icon" onclick="closeModal('multiPageReaderModal')">&times;</button>
@@ -377,7 +377,7 @@
           <span class="page-indicator-pill" id="pageNumberPill">पेज 1 / 7</span>
           <span class="audio-badge" id="audioMoodBadge"><i data-lucide="music"></i> BGM: फनी कॉमेडी</span>
           <button id="btnPlayAudio" style="background: #f59e0b; border: none; color: #000; font-weight: 800; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 13px;" onclick="toggleAudioWithBGM()">
-            🎧 सुनें (वॉइस + BGM)
+            🎧 सुनें (ऑटो-टर्न)
           </button>
         </div>
       </div>
@@ -420,10 +420,11 @@
   <script>
     lucide.createIcons();
 
-    // Web Audio API Automatic BGM Generator (Funny Cartoon & Spooky Suspense)
+    // Web Audio API Adaptive BGM Generator (Funny Cartoon & Spooky Suspense)
     let audioCtx = null;
     let bgmInterval = null;
     let isAudioPlaying = false;
+    let autoFlipTimeout = null;
 
     function initAudioContext() {
       if (!audioCtx) {
@@ -685,16 +686,20 @@
 
       currentPageIndex = 0;
       document.getElementById('readerBookTitle').innerText = activeBook.title;
-      renderCurrentPage();
+      renderCurrentPage(false); // don't auto play immediately on open
       openModal('multiPageReaderModal');
     }
 
-    function renderCurrentPage() {
+    function renderCurrentPage(continuePlaying = false) {
       if(!activeBook || !activeBook.pages) return;
       const p = activeBook.pages[currentPageIndex];
       const totalPages = activeBook.pages.length;
 
-      stopVoiceAndBGM();
+      // Clear any pending page transition timer
+      if (autoFlipTimeout) {
+        clearTimeout(autoFlipTimeout);
+        autoFlipTimeout = null;
+      }
 
       document.getElementById('readerChapterTitle').innerText = p.heading;
       document.getElementById('pageNumberPill').innerText = `पेज ${currentPageIndex + 1} / ${totalPages}`;
@@ -713,6 +718,7 @@
       document.getElementById('comicSpeechBubble').innerText = `💬 "${p.dialogue}"`;
       document.getElementById('comicStoryText').innerText = p.story;
 
+      // Suspense box shown only on last page
       const suspenseBox = document.getElementById('suspenseEndingBox');
       if(currentPageIndex === totalPages - 1) {
         suspenseBox.style.display = 'block';
@@ -721,6 +727,7 @@
         suspenseBox.style.display = 'none';
       }
 
+      // Prev / Next button states
       document.getElementById('btnPrevPage').disabled = (currentPageIndex === 0);
       const nextBtn = document.getElementById('btnNextPage');
       if(currentPageIndex === totalPages - 1) {
@@ -731,6 +738,11 @@
         nextBtn.disabled = false;
       }
       lucide.createIcons();
+
+      // If user activated audio, continue speaking this page and setup auto-flip to next
+      if (continuePlaying && isAudioPlaying) {
+        playVoiceAndBGM();
+      }
     }
 
     function changePage(delta) {
@@ -738,14 +750,16 @@
       const newIdx = currentPageIndex + delta;
       if(newIdx >= 0 && newIdx < activeBook.pages.length) {
         currentPageIndex = newIdx;
-        renderCurrentPage();
+        renderCurrentPage(isAudioPlaying);
       }
     }
 
+    // Toggle Voice + Dynamic BGM
     function toggleAudioWithBGM() {
       if (isAudioPlaying) {
         stopVoiceAndBGM();
       } else {
+        isAudioPlaying = true;
         playVoiceAndBGM();
       }
     }
@@ -753,35 +767,63 @@
     function playVoiceAndBGM() {
       if(!activeBook || !activeBook.pages) return;
       const p = activeBook.pages[currentPageIndex];
+      const totalPages = activeBook.pages.length;
 
-      isAudioPlaying = true;
-      document.getElementById('btnPlayAudio').innerHTML = "⏹️ बंद करें";
-      document.getElementById('btnPlayAudio').style.background = "#ef4444";
-      document.getElementById('btnPlayAudio').style.color = "#fff";
+      const btn = document.getElementById('btnPlayAudio');
+      if (btn) {
+        btn.innerHTML = "⏹️ बंद करें";
+        btn.style.background = "#ef4444";
+        btn.style.color = "#fff";
+      }
 
+      // Start the matching BGM (Funny or Suspense)
       startAdaptiveBGM(p.mood || 'funny');
 
+      // Play Speech Voice with Automatic Next-Page Flip Callback
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
         const text = `${p.heading}। संवाद: ${p.dialogue}। कहानी: ${p.story}`;
         const ut = new SpeechSynthesisUtterance(text);
         ut.lang = 'hi-IN';
+        
         ut.onend = () => {
-          stopVoiceAndBGM();
+          if (!isAudioPlaying) return;
+          
+          // Check if there are more pages to read
+          if (currentPageIndex < totalPages - 1) {
+            // Wait 1.5 seconds naturally, then flip to the next page automatically!
+            autoFlipTimeout = setTimeout(() => {
+              if (isAudioPlaying) {
+                currentPageIndex++;
+                renderCurrentPage(true); // render next page and continue auto-playing!
+              }
+            }, 1500);
+          } else {
+            // Reached final page (page 7)
+            autoFlipTimeout = setTimeout(() => {
+              stopVoiceAndBGM();
+              alert("भाग 1 की संपूर्ण ऑडियो कहानी समाप्त हुई! भाग 2 जल्द आ रहा है।");
+            }, 2000);
+          }
         };
+
         window.speechSynthesis.speak(ut);
       }
     }
 
     function stopVoiceAndBGM() {
       isAudioPlaying = false;
+      if (autoFlipTimeout) {
+        clearTimeout(autoFlipTimeout);
+        autoFlipTimeout = null;
+      }
       stopBGM();
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
       }
       const btn = document.getElementById('btnPlayAudio');
       if (btn) {
-        btn.innerHTML = "🎧 सुनें (वॉइस + BGM)";
+        btn.innerHTML = "🎧 सुनें (ऑटो-टर्न)";
         btn.style.background = "#f59e0b";
         btn.style.color = "#000";
       }
