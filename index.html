@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>अक्षर (Akshar) - बहु-पृष्ठीय सचित्र कॉमिक्स एवं सिनेमैटिक ऑडियो</title>
+  <title>अक्षर (Akshar) - 7-पेज सचित्र कॉमिक्स एवं सिनेमैटिक ई-पुस्तकालय</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+Devanagari:wght@500;600;700;800&family=Rozha+One&display=swap" rel="stylesheet">
@@ -76,7 +76,7 @@
     }
     .cat-btn.active, .cat-btn:hover { color: #0b1120; background: var(--gold-btn); border-color: var(--gold-btn); }
 
-    /* Main Container */
+    /* Main Content Container */
     .content-wrap { max-width: 1240px; margin: 0 auto; padding: 24px 20px; }
 
     /* Hero Banner */
@@ -95,7 +95,7 @@
     .section-heading h3 { font-size: 22px; font-weight: 800; color: #fff; }
     .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 24px; margin-bottom: 40px; }
 
-    /* Item Card with Real Cover Image */
+    /* Item Card */
     .item-card {
       background: var(--navy-card); border: 1px solid var(--border-card); border-radius: 16px;
       padding: 14px; display: flex; flex-direction: column; gap: 12px; transition: 0.25s;
@@ -137,7 +137,7 @@
     }
     .btn-action:hover { background: var(--gold-hover); }
 
-    /* Modals */
+    /* Universal Modal Structure */
     .modal-overlay {
       display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(6px); z-index: 1000;
@@ -152,7 +152,7 @@
       color: #64748b; font-size: 28px; cursor: pointer; font-weight: bold;
     }
 
-    /* Comic Multi-Page Reader Styling */
+    /* 7-Page Reader Styling */
     .comic-reader-header {
       background: #0f172a; color: white; padding: 16px 20px; border-radius: 12px; margin-bottom: 16px;
       display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
@@ -161,14 +161,12 @@
       background: var(--gold-btn); color: #0b1120; font-size: 12.5px; font-weight: 900;
       padding: 4px 12px; border-radius: 20px;
     }
-
-    /* Cinematic Audio Indicator */
     .audio-badge {
       display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800;
       background: #3b82f6; color: white; padding: 4px 10px; border-radius: 12px;
     }
 
-    /* 6 to 7 Page Scene Visual Canvas */
+    /* Illustrated Scene Canvas */
     .comic-page-canvas {
       border: 3px solid #0f172a; border-radius: 14px; overflow: hidden; background: #000;
       position: relative; margin-bottom: 16px; height: 320px;
@@ -188,7 +186,7 @@
       font-size: 15.5px; line-height: 1.8; color: #1e293b; font-weight: 600; margin-bottom: 18px;
     }
 
-    /* Pagination Navigation Controls */
+    /* Page Controls */
     .comic-nav-controls {
       display: flex; justify-content: space-between; align-items: center; gap: 12px;
       border-top: 2px solid #e2e8f0; padding-top: 16px;
@@ -200,7 +198,7 @@
     .btn-page-nav:disabled { opacity: 0.4; cursor: not-allowed; }
     .btn-page-nav.next { background: var(--gold-btn); color: #0b1120; }
 
-    /* Suspense Final Page 7 Box */
+    /* Suspense Final Box */
     .suspense-final-box {
       display: none; background: #fef2f2; border: 3px dashed #ef4444; border-radius: 14px;
       padding: 22px; text-align: center; margin-top: 10px;
@@ -208,7 +206,7 @@
     .suspense-final-box h4 { color: #dc2626; font-size: 20px; font-weight: 900; margin-bottom: 6px; }
     .suspense-final-box p { font-size: 15px; color: #991b1b; font-weight: 700; line-height: 1.6; }
 
-    /* Admin Form Controls */
+    /* Forms */
     .form-ctrl { margin-bottom: 14px; }
     .form-ctrl label { display: block; font-size: 13.5px; font-weight: 700; margin-bottom: 6px; color: #cbd5e1; }
     .form-ctrl input, .form-ctrl select {
@@ -241,7 +239,7 @@
 
   <!-- Top Announcement Bar -->
   <div class="top-bar">
-    <span>🎧 ऑटो-बैकग्राउंड म्यूजिक और AI आवाज़ के साथ लाइव • अक्षर डिजिटल स्टोर</span>
+    <span>🎧 7-पेज सचित्र कॉमिक्स + ऑटो BGM और AI वॉइस लाइव • अक्षर डिजिटल स्टोर</span>
     <span>संस्करण 2026</span>
   </div>
 
@@ -286,7 +284,7 @@
     <!-- Hero Banner -->
     <div class="hero-strip">
       <h2>पढ़िए, सीखिए, <br><span>अपने सपनों को उड़ान दीजिए</span></h2>
-      <p>हिंदी में 7-पृष्ठीय सचित्र कॉमिक्स, ऑटो-बैकग्राउंड म्यूजिक (फनी व सस्पेंस), AI आवाज़ और ई-पुस्तकों का आधुनिक संसार।</p>
+      <p>हिंदी में 7-पृष्ठीय सचित्र कॉमिक्स, ऑटो-बैकग्राउंड म्यूज़िक (फनी व सस्पेंस), AI आवाज़ और ई-पुस्तकों का आधुनिक संसार।</p>
     </div>
 
     <!-- Section Heading -->
@@ -436,13 +434,11 @@
       }
     }
 
-    // Play Adaptive BGM based on Mood
     function startAdaptiveBGM(mood) {
       stopBGM();
       initAudioContext();
 
       if (mood === 'funny') {
-        // Playful cartoon pizzicato bounce
         const notes = [261.63, 329.63, 392.00, 523.25, 493.88, 392.00];
         let step = 0;
         bgmInterval = setInterval(() => {
@@ -463,7 +459,6 @@
           step++;
         }, 320);
       } else {
-        // Deep Spooky Mystery Suspense Drone
         const droneNotes = [110.00, 116.54, 130.81, 123.47];
         let step = 0;
         bgmInterval = setInterval(() => {
@@ -588,7 +583,7 @@
       }
     ];
 
-    // Other 19 comics
+    // Other 19 comics with 7 pages & mood tags
     const otherTitles = [
       "प्रोफ़ेसर गोलमाल और टाइम मशीन", "सुपर बंटी: रिमोट का रहस्य", "इंस्पेक्टर ढोलकिया और रसगुल्ला",
       "एलियन आया छत पर", "हॉस्टल रूम 404 का साया", "जादुई समोसा और चिंटू", "भूतिया शादी और पिंटू",
@@ -699,14 +694,12 @@
       const p = activeBook.pages[currentPageIndex];
       const totalPages = activeBook.pages.length;
 
-      // Stop previous audio on page switch
       stopVoiceAndBGM();
 
       document.getElementById('readerChapterTitle').innerText = p.heading;
       document.getElementById('pageNumberPill').innerText = `पेज ${currentPageIndex + 1} / ${totalPages}`;
       document.getElementById('pageNavStatus').innerText = `पेज ${currentPageIndex + 1} of ${totalPages}`;
       
-      // Mood indicator update
       const moodBadge = document.getElementById('audioMoodBadge');
       if (p.mood === 'suspense') {
         moodBadge.innerHTML = `<i data-lucide="music"></i> BGM: सस्पेंस / हॉरर`;
@@ -720,7 +713,6 @@
       document.getElementById('comicSpeechBubble').innerText = `💬 "${p.dialogue}"`;
       document.getElementById('comicStoryText').innerText = p.story;
 
-      // Suspense box shown only on last page
       const suspenseBox = document.getElementById('suspenseEndingBox');
       if(currentPageIndex === totalPages - 1) {
         suspenseBox.style.display = 'block';
@@ -729,7 +721,6 @@
         suspenseBox.style.display = 'none';
       }
 
-      // Prev / Next button states
       document.getElementById('btnPrevPage').disabled = (currentPageIndex === 0);
       const nextBtn = document.getElementById('btnNextPage');
       if(currentPageIndex === totalPages - 1) {
@@ -751,7 +742,6 @@
       }
     }
 
-    // Toggle Voice + Dynamic BGM
     function toggleAudioWithBGM() {
       if (isAudioPlaying) {
         stopVoiceAndBGM();
@@ -769,10 +759,8 @@
       document.getElementById('btnPlayAudio').style.background = "#ef4444";
       document.getElementById('btnPlayAudio').style.color = "#fff";
 
-      // Start the matching BGM (Funny or Suspense)
       startAdaptiveBGM(p.mood || 'funny');
 
-      // Play Speech Voice
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
         const text = `${p.heading}। संवाद: ${p.dialogue}। कहानी: ${p.story}`;
