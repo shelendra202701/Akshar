@@ -3,267 +3,544 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>अक्षर - आधुनिक ई-बुक प्लेटफ़ॉर्म</title>
+  <title>अक्षर. - प्रीमियम हिंदी ई-पुस्तकालय</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700;800&family=Rozha+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Rozha+One&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     :root {
-      --bg-main: #0b0f19;
-      --bg-card: #111827;
-      --border-card: #1f2937;
-      --accent: #4f46e5;
-      --text-main: #f9fafb;
-      --text-muted: #9ca3af;
-      --sidebar-w: 240px;
+      --bg-dark: #07090e;
+      --card-glass: rgba(18, 24, 38, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-glow: #6366f1;
+      --gold: #f59e0b;
+      --gold-gradient: linear-gradient(135deg, #fbbf24, #d97706);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Noto Sans Devanagari', 'Plus Jakarta Sans', sans-serif; }
-    body { background-color: var(--bg-main); color: var(--text-main); display: flex; min-height: 100vh; }
-    aside {
-      width: var(--sidebar-w); background: #0d1322; border-right: 1px solid var(--border-card);
-      padding: 20px 14px; display: flex; flex-direction: column; gap: 24px;
-    }
-    .logo-area { display: flex; align-items: center; gap: 10px; }
-    .logo-badge {
-      width: 40px; height: 40px; border-radius: 10px;
-      background: linear-gradient(135deg, #6366f1, #3b82f6);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; font-weight: bold; color: white;
-    }
-    .logo-text h2 { font-size: 18px; font-weight: 700; color: #fff; }
-    .logo-text span { font-size: 11px; color: #818cf8; }
-    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 6px; }
-    .nav-link {
-      display: flex; align-items: center; gap: 10px; padding: 10px 12px;
-      border-radius: 8px; color: var(--text-muted); text-decoration: none;
-      font-size: 14px; font-weight: 600; cursor: pointer;
-    }
-    .nav-link.active { background: #1e293b; color: #fff; border-left: 3px solid #6366f1; }
-    main { flex: 1; padding: 20px; overflow-y: auto; }
-    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; gap: 14px; flex-wrap: wrap; }
-    .search-box { position: relative; flex: 1; min-width: 220px; }
-    .search-box input {
-      width: 100%; padding: 10px 14px 10px 38px; border-radius: 10px;
-      background: #131b2e; border: 1px solid var(--border-card); color: #fff; font-size: 14px; outline: none;
-    }
-    .search-box i { position: absolute; left: 12px; top: 12px; color: var(--text-muted); width: 16px; height: 16px; }
-    .btn-create {
-      background: linear-gradient(135deg, #6366f1, #4f46e5); color: white; border: none;
-      padding: 10px 16px; border-radius: 10px; font-weight: 600; font-size: 13px;
-      display: flex; align-items: center; gap: 6px; cursor: pointer;
-    }
-    .hero-banner {
-      background: linear-gradient(135deg, #182035 0%, #111827 100%);
-      border: 1px solid #23304d; border-radius: 16px; padding: 24px; margin-bottom: 24px;
-    }
-    .hero-banner h1 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
-    .hero-banner p { color: var(--text-muted); font-size: 13px; line-height: 1.5; }
-    .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
-    .book-card {
-      background: #111827; border: 1px solid var(--border-card); border-radius: 16px;
-      padding: 14px; display: flex; flex-direction: column; gap: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
     
-    /* 3D Realistic Book Cover */
-    .book-cover-wrap {
-      perspective: 800px;
+    body {
+      background-color: var(--bg-dark);
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Glowing Orbs in Background */
+    .ambient-glow-1 {
+      position: fixed; width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(0,0,0,0) 70%);
+      top: -100px; right: -50px; pointer-events: none; z-index: 0;
+    }
+    .ambient-glow-2 {
+      position: fixed; width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(0,0,0,0) 70%);
+      bottom: -150px; left: 100px; pointer-events: none; z-index: 0;
+    }
+
+    /* Sidebar Glassmorphism */
+    aside {
+      width: 260px;
+      background: rgba(11, 15, 25, 0.85);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid var(--card-border);
+      padding: 24px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      z-index: 10;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none;
+    }
+    .brand-icon {
+      width: 44px; height: 44px; border-radius: 14px;
+      background: linear-gradient(135deg, #4f46e5, #06b6d4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; font-weight: 800; color: #fff;
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+    }
+    .brand-title h2 { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
+    .brand-title span { font-size: 11px; color: #818cf8; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+
+    .nav-menu { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+      border-radius: 12px; color: #94a3b8; font-size: 14px; font-weight: 600;
+      cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .nav-item:hover, .nav-item.active {
+      background: rgba(255, 255, 255, 0.05); color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    .nav-item.active {
+      background: linear-gradient(90deg, rgba(99, 102, 241, 0.2), transparent);
+      border-left: 3px solid #6366f1; color: #fff;
+    }
+
+    /* Main Area */
+    main { flex: 1; padding: 28px 40px; z-index: 1; overflow-y: auto; }
+    
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 32px; gap: 16px; flex-wrap: wrap;
+    }
+    .search-wrapper { position: relative; flex: 1; max-width: 480px; }
+    .search-wrapper input {
+      width: 100%; padding: 13px 18px 13px 44px; border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04); border: 1px solid var(--card-border);
+      color: #fff; font-size: 14px; backdrop-filter: blur(10px);
+      transition: all 0.3s; outline: none;
+    }
+    .search-wrapper input:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+      background: rgba(255, 255, 255, 0.07);
+    }
+    .search-wrapper i { position: absolute; left: 15px; top: 14px; color: #64748b; }
+
+    .header-btns { display: flex; gap: 12px; }
+    .btn-glass {
+      background: rgba(255, 255, 255, 0.05); border: 1px solid var(--card-border);
+      color: #f1f5f9; padding: 11px 20px; border-radius: 12px; font-size: 13.5px;
+      font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px;
+      transition: all 0.3s; backdrop-filter: blur(10px);
+    }
+    .btn-glass:hover {
+      background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    .btn-glow {
+      background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff; border: none;
+      padding: 11px 22px; border-radius: 12px; font-size: 13.5px; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+      transition: all 0.3s;
+    }
+    .btn-glow:hover {
+      box-shadow: 0 6px 25px rgba(99, 102, 241, 0.6);
+      transform: translateY(-2px);
+    }
+
+    /* Hero Banner */
+    .hero-box {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px; padding: 36px 40px; margin-bottom: 36px;
+      backdrop-filter: blur(20px); position: relative; overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+    .hero-box::after {
+      content: 'अक्षर'; font-family: 'Rozha One', serif; font-size: 140px;
+      position: absolute; right: 20px; bottom: -40px; opacity: 0.03; color: #fff;
+      pointer-events: none;
+    }
+    .hero-box h1 {
+      font-size: 32px; font-weight: 800; margin-bottom: 10px;
+      background: linear-gradient(120deg, #ffffff, #cbd5e1);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-box p { color: #94a3b8; font-size: 15px; max-width: 600px; line-height: 1.6; }
+
+    /* Section Title */
+    .section-head {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 24px;
+    }
+    .section-head h3 { font-size: 20px; font-weight: 700; color: #f8fafc; }
+    .section-head span { font-size: 13px; color: #6366f1; cursor: pointer; font-weight: 600; }
+
+    /* Books Grid */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 28px;
+    }
+
+    /* Ultra-Realistic 3D Book Card */
+    .book-card {
+      background: var(--card-glass);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 20px;
+      backdrop-filter: blur(14px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+    .book-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(99, 102, 241, 0.4);
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(99, 102, 241, 0.2);
+    }
+
+    /* 3D Book Cover Canvas */
+    .book-wrapper {
+      perspective: 1000px;
       display: flex;
       justify-content: center;
-      padding: 6px 0;
+      padding: 10px 0;
     }
-    .book-cover {
-      width: 100%; height: 280px; border-radius: 6px 14px 14px 6px;
-      padding: 20px 18px; display: flex; flex-direction: column; justify-content: space-between;
-      color: white; position: relative;
-      box-shadow: -6px 0 10px rgba(0,0,0,0.5), 6px 8px 18px rgba(0,0,0,0.4);
-      border-left: 5px solid rgba(255,255,255,0.25);
-      background-size: cover; background-position: center;
-      transition: transform 0.25s ease;
+    .book-3d {
+      width: 100%;
+      height: 310px;
+      border-radius: 4px 16px 16px 4px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #fff;
+      position: relative;
+      box-shadow: 
+        -8px 0 14px rgba(0, 0, 0, 0.7),
+        8px 12px 24px rgba(0, 0, 0, 0.5);
+      border-left: 6px solid rgba(255, 255, 255, 0.3);
+      transition: transform 0.4s ease;
+      cursor: pointer;
     }
-    .book-card:hover .book-cover {
-      transform: translateY(-4px) rotateY(-4deg);
+    .book-card:hover .book-3d {
+      transform: rotateY(-8deg) scale(1.02);
     }
-    .cover-badge {
-      align-self: flex-start; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
-      padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700;
-      letter-spacing: 0.5px; border: 1px solid rgba(255,255,255,0.2);
+    .book-spine-crease {
+      position: absolute; left: 10px; top: 0; bottom: 0; width: 3px;
+      background: rgba(0, 0, 0, 0.3);
+      box-shadow: 1px 0 2px rgba(255, 255, 255, 0.15);
     }
-    .cover-title {
-      font-family: 'Rozha One', 'Noto Sans Devanagari', serif;
-      font-size: 22px; line-height: 1.25; text-shadow: 0 2px 8px rgba(0,0,0,0.7);
-      margin-bottom: 6px;
+    .book-foil-badge {
+      align-self: flex-start;
+      background: var(--gold-gradient);
+      color: #000;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 10px rgba(245, 158, 11, 0.4);
     }
-    .cover-tagline {
-      font-size: 12px; opacity: 0.9; line-height: 1.4; color: #e2e8f0;
-      background: rgba(0,0,0,0.3); padding: 6px 8px; border-radius: 6px;
+    .book-body-title {
+      font-family: 'Rozha One', serif;
+      font-size: 23px;
+      line-height: 1.3;
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.8);
+      margin-bottom: 8px;
     }
-    .cover-author {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
-      border-top: 1px solid rgba(255,255,255,0.25); padding-top: 6px; opacity: 0.85;
+    .book-body-desc {
+      font-size: 12px;
+      opacity: 0.9;
+      line-height: 1.5;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 8px 10px;
+      border-radius: 8px;
+      backdrop-filter: blur(4px);
+    }
+    .book-footer-author {
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 8px;
+      opacity: 0.85;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    .book-meta h4 { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
-    .book-meta span { font-size: 12px; color: #10b981; font-weight: 600; }
-    .card-actions { display: flex; gap: 8px; margin-top: auto; }
-    .btn-action {
-      flex: 1; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 700;
-      cursor: pointer; border: none; display: flex; align-items: center; justify-content: center; gap: 6px;
+    .meta-area h4 { font-size: 16.5px; font-weight: 700; margin-bottom: 4px; }
+    .meta-area p { font-size: 12.5px; color: #10b981; font-weight: 600; }
+
+    .action-row { display: flex; gap: 10px; margin-top: auto; }
+    .btn-act {
+      flex: 1; padding: 11px; border-radius: 10px; font-size: 13px; font-weight: 700;
+      cursor: pointer; border: none; display: flex; align-items: center; justify-content: center;
+      gap: 6px; transition: all 0.25s;
     }
-    .btn-read { background: #1e293b; color: white; border: 1px solid #334155; }
-    .btn-read:hover { background: #334155; }
-    .btn-listen { background: #6366f1; color: white; }
-    .btn-listen:hover { background: #4f46e5; }
-    
-    @media (max-width: 768px) {
-      body { flex-direction: column; }
-      aside { width: 100%; height: auto; position: static; }
-      .nav-links { flex-direction: row; overflow-x: auto; }
+    .btn-act-read {
+      background: rgba(255, 255, 255, 0.06); color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.12);
     }
-    
-    /* Modal / Reader */
+    .btn-act-read:hover {
+      background: #fff; color: #000;
+    }
+    .btn-act-audio {
+      background: #4f46e5; color: #fff;
+      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.35);
+    }
+    .btn-act-audio:hover { background: #4338ca; }
+
+    /* Modal Styling */
     .modal-overlay {
       display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.85); z-index: 1000; align-items: center; justify-content: center;
-      padding: 16px; backdrop-filter: blur(4px);
+      background: rgba(0, 0, 0, 0.88); z-index: 1000; align-items: center; justify-content: center;
+      padding: 16px; backdrop-filter: blur(8px);
     }
-    .modal-content {
-      background: #ffffff; color: #1e293b; width: 100%; max-width: 720px; max-height: 88vh;
-      border-radius: 16px; overflow-y: auto; padding: 24px; position: relative;
+    .modal-card {
+      background: #ffffff; color: #0f172a; width: 100%; max-width: 740px; max-height: 88vh;
+      border-radius: 20px; overflow-y: auto; padding: 32px; position: relative;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
     }
-    .modal-close {
-      position: absolute; top: 12px; right: 16px; font-size: 28px;
-      color: #64748b; cursor: pointer; border: none; background: transparent;
+    .modal-close-btn {
+      position: absolute; top: 16px; right: 20px; font-size: 30px;
+      color: #94a3b8; cursor: pointer; border: none; background: transparent;
+      transition: 0.2s;
     }
-    
-    .reader-cover-banner {
-      background: linear-gradient(135deg, #064e3b, #047857);
-      color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px;
-    }
-    .reader-cover-banner h2 { font-size: 22px; margin-bottom: 4px; font-family: 'Rozha One', serif; }
-    .reader-cover-banner p { font-size: 13px; opacity: 0.9; }
+    .modal-close-btn:hover { color: #0f172a; }
 
-    .chapter { margin-bottom: 22px; }
-    .chapter h3 { font-size: 17px; color: #1e3a8a; margin-bottom: 6px; border-bottom: 2px solid #e2e8f0; padding-bottom: 4px; }
-    .chapter p { font-size: 14.5px; line-height: 1.7; margin-bottom: 8px; color: #334155; }
-    .tip-box { background: #f0fdf4; border-left: 4px solid #10b981; padding: 12px; margin: 10px 0; border-radius: 6px; font-size: 13.5px; color: #065f46; font-weight: 600; }
-    
-    .modal-footer {
-      display: flex; justify-content: space-between; align-items: center;
-      border-top: 1px solid #e2e8f0; padding-top: 16px; margin-top: 20px;
+    .reader-banner {
+      background: linear-gradient(135deg, #064e3b 0%, #047857 100%);
+      color: #fff; padding: 24px; border-radius: 14px; margin-bottom: 24px;
+      box-shadow: 0 8px 20px rgba(4, 120, 87, 0.3);
     }
-    .btn-print {
-      background: #0f172a; color: #fff; padding: 10px 16px; border-radius: 8px;
-      font-size: 13px; font-weight: 600; cursor: pointer; border: none; display: flex; align-items: center; gap: 6px;
+    .reader-banner h2 { font-size: 24px; font-family: 'Rozha One', serif; margin-bottom: 6px; }
+    .reader-banner p { font-size: 14px; opacity: 0.9; }
+
+    .reading-chapter { margin-bottom: 26px; }
+    .reading-chapter h3 {
+      font-size: 18px; color: #1e3a8a; margin-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;
+    }
+    .reading-chapter p { font-size: 15px; line-height: 1.8; margin-bottom: 10px; color: #334155; }
+    .tip-callout {
+      background: #f0fdf4; border-left: 4px solid #10b981;
+      padding: 14px; border-radius: 6px; font-size: 14px; color: #065f46; font-weight: 600;
+    }
+
+    .modal-bottom-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid #e2e8f0; padding-top: 20px; margin-top: 24px;
+    }
+    .btn-pdf-print {
+      background: #0f172a; color: #fff; padding: 12px 20px; border-radius: 10px;
+      font-size: 13.5px; font-weight: 700; cursor: pointer; border: none; display: flex; align-items: center; gap: 8px;
+    }
+
+    /* Auth Box */
+    .auth-tabs { display: flex; border-bottom: 2px solid #e2e8f0; margin-bottom: 22px; }
+    .auth-tab-btn {
+      flex: 1; padding: 12px; background: none; border: none; font-size: 15px; font-weight: 700;
+      color: #94a3b8; cursor: pointer; border-bottom: 3px solid transparent; text-align: center;
+    }
+    .auth-tab-btn.active { color: #4f46e5; border-bottom-color: #4f46e5; }
+    .form-field { margin-bottom: 16px; }
+    .form-field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #334155; }
+    .form-field input {
+      width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid #cbd5e1;
+      font-size: 14px; outline: none;
+    }
+    .form-field input:focus { border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15); }
+    .btn-submit-login {
+      width: 100%; background: #4f46e5; color: white; padding: 13px; border-radius: 10px;
+      font-size: 14px; font-weight: 700; border: none; cursor: pointer;
+    }
+
+    @media (max-width: 820px) {
+      body { flex-direction: column; }
+      aside { width: 100%; height: auto; position: static; }
+      main { padding: 20px; }
+      .nav-menu { flex-direction: row; overflow-x: auto; }
+      .hero-box h1 { font-size: 24px; }
     }
   </style>
 </head>
 <body>
+
+  <!-- Ambient Glow Effects -->
+  <div class="ambient-glow-1"></div>
+  <div class="ambient-glow-2"></div>
+
+  <!-- Sidebar -->
   <aside>
-    <div class="logo-area">
-      <div class="logo-badge">अ</div>
-      <div class="logo-text">
+    <div class="brand">
+      <div class="brand-icon">अ</div>
+      <div class="brand-title">
         <h2>अक्षर AI</h2>
-        <span>ई-बुक प्लेटफ़ॉर्म</span>
+        <span>प्रीमियम बुक्स</span>
       </div>
     </div>
-    <ul class="nav-links">
-      <li class="nav-link active"><i data-lucide="compass"></i> स्टोर</li>
-      <li class="nav-link"><i data-lucide="headphones"></i> ऑडियो</li>
+    <ul class="nav-menu">
+      <li class="nav-item active"><i data-lucide="sparkles"></i> ई-पुस्तकालय</li>
+      <li class="nav-item"><i data-lucide="headphones"></i> ऑडियो बुक्स</li>
+      <li class="nav-item"><i data-lucide="bookmark"></i> मेरा संग्रह</li>
     </ul>
   </aside>
 
+  <!-- Main Content Area -->
   <main>
     <header>
-      <div class="search-box">
+      <div class="search-wrapper">
         <i data-lucide="search"></i>
-        <input type="text" placeholder="किताबें खोजें...">
+        <input type="text" placeholder="किताबें, लेखक या विषय खोजें...">
       </div>
-      <button class="btn-create" onclick="alert('AI स्टूडियो जल्द उपलब्ध होगा!')">
-        <i data-lucide="plus"></i> नई ई-बुक
-      </button>
+      <div class="header-btns">
+        <button class="btn-glass" onclick="openAuthModal()"><i data-lucide="user"></i> लॉगिन</button>
+        <button class="btn-glow" onclick="openAdminCreate()"><i data-lucide="shield-check"></i> एडमिन पैनल</button>
+      </div>
     </header>
 
-    <div class="hero-banner">
+    <div class="hero-box">
       <h1>अपनी सोच। आपकी किताब।</h1>
-      <p>हिंदी में व्यावहारिक ई-बुक्स पढ़ें, AI वॉइस से सुनें और 1-क्लिक में प्रिंटेबल PDF डाउनलोड करें।</p>
+      <p>उच्च-स्तरीय हिंदी ई-बुक्स, प्राकृतिक AI आवाज़ में ऑडियो और एक क्लिक में प्रिंटेबल PDF संस्करण।</p>
     </div>
 
-    <div class="books-grid">
-      <!-- 3D Book 1 with Cover Story -->
+    <div class="section-head">
+      <h3>विशेष संग्रह (Featured Books)</h3>
+      <span>सभी देखें &rarr;</span>
+    </div>
+
+    <div class="grid-container">
+      <!-- 3D Luxury Book 1 -->
       <div class="book-card">
-        <div class="book-cover-wrap">
-          <div class="book-cover" style="background: linear-gradient(145deg, #064e3b 0%, #065f46 50%, #022c22 100%);">
-            <span class="cover-badge">★ बेस्टसेलर संस्करण</span>
+        <div class="book-wrapper">
+          <div class="book-3d" style="background: linear-gradient(145deg, #064e3b 0%, #022c22 100%);">
+            <div class="book-spine-crease"></div>
+            <span class="book-foil-badge">★ बेस्टसेलर 2026</span>
             <div>
-              <h3 class="cover-title">छोटी आदतें, बड़ा बदलाव</h3>
-              <p class="cover-tagline">प्रतिदिन सिर्फ 1% सुधार से जीवन और काम को बदलने का सरल मार्गदर्शिका।</p>
+              <h3 class="book-body-title">छोटी आदतें, बड़ा बदलाव</h3>
+              <p class="book-body-desc">दैनिक जीवन में 1% सुधार से असीम सफलता की वैज्ञानिक पद्धति।</p>
             </div>
-            <div class="cover-author">अक्षर संपादकीय बोर्ड • संस्करण 2026</div>
+            <div class="book-footer-author">
+              <span>अक्षर संपादकीय</span>
+              <span>4 अध्याय</span>
+            </div>
           </div>
         </div>
-        <div class="book-meta">
+        <div class="meta-area">
           <h4>छोटी आदतें, बड़ा बदलाव</h4>
-          <span>4 अध्याय • मुफ़्त सम्पूर्ण संस्करण</span>
+          <p>मुफ़्त डिजिटल संस्करण</p>
         </div>
-        <div class="card-actions">
-          <button class="btn-action btn-read" onclick="openReader()"><i data-lucide="book-open"></i> पढ़ें</button>
-          <button class="btn-action btn-listen" onclick="speakText()"><i data-lucide="headphones"></i> सुनें</button>
+        <div class="action-row">
+          <button class="btn-act btn-act-read" onclick="openReader()"><i data-lucide="book-open"></i> पढ़ें</button>
+          <button class="btn-act btn-act-audio" onclick="speakText()"><i data-lucide="volume-2"></i> सुनें</button>
         </div>
       </div>
 
-      <!-- 3D Book 2 with Cover Story -->
+      <!-- 3D Luxury Book 2 -->
       <div class="book-card">
-        <div class="book-cover-wrap">
-          <div class="book-cover" style="background: linear-gradient(145deg, #4c1d95 0%, #6d28d9 50%, #2e1065 100%);">
-            <span class="cover-badge">करियर गाइड</span>
+        <div class="book-wrapper">
+          <div class="book-3d" style="background: linear-gradient(145deg, #4c1d95 0%, #1e1b4b 100%);">
+            <div class="book-spine-crease"></div>
+            <span class="book-foil-badge" style="background: linear-gradient(135deg, #38bdf8, #0284c7); color: #fff;">करियर मास्टरक्लास</span>
             <div>
-              <h3 class="cover-title">पहली नौकरी की तैयारी</h3>
-              <p class="cover-tagline">शानदार रेज़्युमे, इंटरव्यू में आत्मविश्वास और शुरुआती वेतन पर सही चर्चा।</p>
+              <h3 class="book-body-title">पहली नौकरी की तैयारी</h3>
+              <p class="book-body-desc">प्रभावशाली रेज़्युमे निर्माण, साक्षात्कार रणनीति और आत्मविश्वास।</p>
             </div>
-            <div class="cover-author">करियर डेस्क • मुफ़्त गाइड</div>
+            <div class="book-footer-author">
+              <span>करियर टीम</span>
+              <span>5 अध्याय</span>
+            </div>
           </div>
         </div>
-        <div class="book-meta">
+        <div class="meta-area">
           <h4>पहली नौकरी की तैयारी</h4>
-          <span>5 अध्याय • मुफ़्त</span>
+          <p>मुफ़्त करियर गाइड</p>
         </div>
-        <div class="card-actions">
-          <button class="btn-action btn-read" onclick="alert('यह किताब जल्द आ रही है!')"><i data-lucide="book-open"></i> पढ़ें</button>
-          <button class="btn-action btn-listen"><i data-lucide="headphones"></i> सुनें</button>
+        <div class="action-row">
+          <button class="btn-act btn-act-read" onclick="alert('यह किताब जल्द ही लाइव होगी!')"><i data-lucide="book-open"></i> पढ़ें</button>
+          <button class="btn-act btn-act-audio"><i data-lucide="volume-2"></i> सुनें</button>
+        </div>
+      </div>
+
+      <!-- 3D Luxury Book 3 -->
+      <div class="book-card">
+        <div class="book-wrapper">
+          <div class="book-3d" style="background: linear-gradient(145deg, #9a3412 0%, #431407 100%);">
+            <div class="book-spine-crease"></div>
+            <span class="book-foil-badge" style="background: linear-gradient(135deg, #10b981, #047857); color: #fff;">वित्तीय गाइड</span>
+            <div>
+              <h3 class="book-body-title">पैसों से दोस्ती करें</h3>
+              <p class="book-body-desc">बचत, बजट और समझदारी से निवेश की बुनियादी समझ।</p>
+            </div>
+            <div class="book-footer-author">
+              <span>फाइनेंस डेस्क</span>
+              <span>6 अध्याय</span>
+            </div>
+          </div>
+        </div>
+        <div class="meta-area">
+          <h4>पैसों से दोस्ती करें</h4>
+          <p>आगामी प्रीमियम</p>
+        </div>
+        <div class="action-row">
+          <button class="btn-act btn-act-read" onclick="alert('यह किताब जल्द ही लाइव होगी!')"><i data-lucide="book-open"></i> पढ़ें</button>
+          <button class="btn-act btn-act-audio"><i data-lucide="volume-2"></i> सुनें</button>
         </div>
       </div>
     </div>
   </main>
 
-  <!-- Interactive Reader Modal with Book Cover Banner -->
-  <div class="modal-overlay" id="readerModal">
-    <div class="modal-content">
-      <button class="modal-close" onclick="closeReader()">&times;</button>
+  <!-- Login Modal (Dual: User & Admin) -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal-card" style="max-width: 440px;">
+      <button class="modal-close-btn" onclick="closeAuthModal()">&times;</button>
       
-      <div class="reader-cover-banner">
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" id="tabUser" onclick="switchTab('user')">पाठक लॉगिन</button>
+        <button class="auth-tab-btn" id="tabAdmin" onclick="switchTab('admin')">एडमिन लॉगिन</button>
+      </div>
+
+      <!-- User Form -->
+      <div id="userForm">
+        <div class="form-field">
+          <label>मोबाइल नंबर या ईमेल</label>
+          <input type="text" placeholder="उदा. 9876543210">
+        </div>
+        <div class="form-field">
+          <label>पासवर्ड</label>
+          <input type="password" placeholder="••••••••">
+        </div>
+        <button class="btn-submit-login" onclick="alert('पाठक के रूप में लॉगिन सफल!'); closeAuthModal();">
+          प्रवेश करें
+        </button>
+      </div>
+
+      <!-- Admin Form -->
+      <div id="adminForm" style="display: none;">
+        <div style="background: #fef2f2; border: 1px solid #fecaca; padding: 12px; border-radius: 8px; color: #991b1b; font-size: 12.5px; margin-bottom: 14px;">
+          यह सुरक्षित क्षेत्र केवल प्लेटफ़ॉर्म एडमिन के लिए आरक्षित है।
+        </div>
+        <div class="form-field">
+          <label>मास्टर एडमिन पिन</label>
+          <input type="password" id="adminPinInput" placeholder="पिन दर्ज करें">
+        </div>
+        <button class="btn-submit-login" style="background: #0f172a;" onclick="checkAdminPin()">
+          एडमिन डैशबोर्ड में जाएँ
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Reader Modal -->
+  <div class="modal-overlay" id="readerModal">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeReader()">&times;</button>
+      
+      <div class="reader-banner">
         <h2>छोटी आदतें, बड़ा बदलाव</h2>
-        <p>प्रतिदिन सिर्फ 1% सुधार से जीवन बदलने की व्यावहारिक मार्गदर्शिका • अक्षर डिजिटल लाइब्रेरी</p>
+        <p>प्रतिदिन 1% का निरंतर सुधार • अक्षर डिजिटल पब्लिकेशन</p>
       </div>
 
-      <div class="chapter">
-        <h3>1. लक्ष्य नहीं, अगला छोटा कदम चुनें</h3>
+      <div class="reading-chapter">
+        <h3>1. लक्ष्य नहीं, अगला छोटा कदम</h3>
         <p>"मुझे बहुत पढ़ना है" केवल एक विचार है। लेकिन <strong>"सोने से पहले फोन दूर रखकर 2 पन्ने पढ़ना"</strong> एक पक्की आदत की शुरुआत है। ऐसे कदम से शुरू करें जिसे करने में 2 मिनट से ज़्यादा न लगे।</p>
-        <div class="tip-box">स्वर्ण नियम: "मैं [मौजूदा काम] के बाद [स्थान] पर [नया छोटा काम] करूँगा।"</div>
+        <div class="tip-callout">स्वर्ण नियम: "मैं [मौजूदा काम] के बाद [स्थान] पर [नया छोटा काम] करूँगा।"</div>
       </div>
 
-      <div class="chapter">
+      <div class="reading-chapter">
         <h3>2. माहौल को अपना सहयोगी बनाएँ</h3>
         <p>इच्छाशक्ति से ज़्यादा ताकतवर आपका माहौल होता है। जो काम करना है उसे आसान बनाइए—किताब हमेशा मेज़ पर सामने रखें और ध्यान भटकाने वाली चीज़ों को नज़र से दूर रखें।</p>
       </div>
 
-      <div class="chapter">
+      <div class="reading-chapter">
         <h3>3. कभी चूक हो तो वापसी का नियम</h3>
         <p>एक दिन का नागा होना सामान्य बात है, लेकिन लगातार दो दिन छोड़ना नई खराब आदत बना देता है। जब भी छूटे, बिना खुद को कोसे अगले ही दिन 2 मिनट के लिए फिर से शुरू कर दें।</p>
       </div>
 
-      <div class="chapter">
+      <div class="reading-chapter">
         <h3>4. आपकी 7-दिवसीय कार्ययोजना</h3>
         <p><strong>दिन 1:</strong> अपनी आदत का 2 मिनट का रूप तय करें।<br>
         <strong>दिन 2:</strong> उसे सुबह की चाय या किसी पुरानी आदत से जोड़ें।<br>
@@ -271,34 +548,69 @@
         <strong>दिन 4 से 7:</strong> कैलेंडर पर टिक लगाकर अपनी निरंतरता बनाए रखें।</p>
       </div>
 
-      <div class="modal-footer">
+      <div class="modal-bottom-bar">
         <span style="font-size: 13px; color: #64748b;">अक्षर पब्लिशिंग • 2026</span>
-        <button class="btn-print" onclick="window.print()"><i data-lucide="printer"></i> प्रिंट / PDF सेव करें</button>
+        <button class="btn-pdf-print" onclick="window.print()"><i data-lucide="printer"></i> PDF डाउनलोड / प्रिंट करें</button>
       </div>
     </div>
   </div>
 
   <script>
     lucide.createIcons();
-    function openReader() {
-      document.getElementById('readerModal').style.display = 'flex';
-    }
-    function closeReader() {
+
+    function openReader() { document.getElementById('readerModal').style.display = 'flex'; }
+    function closeReader() { 
       document.getElementById('readerModal').style.display = 'none';
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    }
+
+    function openAuthModal() { document.getElementById('authModal').style.display = 'flex'; }
+    function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
+
+    function switchTab(role) {
+      const tabUser = document.getElementById('tabUser');
+      const tabAdmin = document.getElementById('tabAdmin');
+      const formUser = document.getElementById('userForm');
+      const formAdmin = document.getElementById('adminForm');
+
+      if (role === 'user') {
+        tabUser.classList.add('active');
+        tabAdmin.classList.remove('active');
+        formUser.style.display = 'block';
+        formAdmin.style.display = 'none';
+      } else {
+        tabAdmin.classList.add('active');
+        tabUser.classList.remove('active');
+        formAdmin.style.display = 'block';
+        formUser.style.display = 'none';
       }
     }
+
+    function openAdminCreate() {
+      openAuthModal();
+      switchTab('admin');
+    }
+
+    function checkAdminPin() {
+      const pin = document.getElementById('adminPinInput').value;
+      if (pin === "1234") {
+        alert("प्रमाणित! एडमिन ई-बुक क्रिएटर पैनल खोला जा रहा है...");
+        closeAuthModal();
+      } else {
+        alert("अवैध पिन! केवल एडमिन के पास अनुमति है।");
+      }
+    }
+
     function speakText() {
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
-        const text = "छोटी आदतें, बड़ा बदलाव। प्रतिदिन सिर्फ 1% सुधार से जीवन बदलने की व्यावहारिक मार्गदर्शिका। अध्याय एक: लक्ष्य नहीं, अगला छोटा कदम चुनें।";
+        const text = "छोटी आदतें, बड़ा बदलाव। प्रतिदिन एक प्रतिशत का निरंतर सुधार। अध्याय एक: लक्ष्य नहीं, अगला छोटा कदम चुनें।";
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'hi-IN';
         window.speechSynthesis.speak(utterance);
         alert('ऑडियो शुरू हो गया है!');
       } else {
-        alert('आपके ब्राउज़र में आवाज़ सपोर्ट नहीं करता।');
+        alert('आवाज़ सपोर्ट उपलब्ध नहीं है।');
       }
     }
   </script>
