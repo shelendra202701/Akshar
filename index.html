@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>अक्षर (Akshar) - लाइव डायलॉग ड्रामा एवं 7-पेज सचित्र कॉमिक्स</title>
+  <title>अक्षर (Akshar) - 7-पेज सचित्र कॉमिक्स, लाइव डायलॉग एवं ई-पुस्तकालय</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+Devanagari:wght@500;600;700;800&family=Rozha+One&display=swap" rel="stylesheet">
@@ -64,7 +64,7 @@
     .btn-header:hover { background: #1e293b; color: var(--gold-btn); }
     .btn-header.admin { background: var(--gold-btn); color: #0b1120; border: none; }
 
-    /* Category Filter Navigation Bar */
+    /* Category Filter Bar */
     .sub-bar {
       background: #0e1629; border-bottom: 1px solid var(--border-card); padding: 10px 20px;
       overflow-x: auto; white-space: nowrap;
@@ -76,7 +76,7 @@
     }
     .cat-btn.active, .cat-btn:hover { color: #0b1120; background: var(--gold-btn); border-color: var(--gold-btn); }
 
-    /* Main Content Container */
+    /* Main Container */
     .content-wrap { max-width: 1240px; margin: 0 auto; padding: 24px 20px; }
 
     /* Hero Banner */
@@ -152,7 +152,7 @@
       color: #64748b; font-size: 28px; cursor: pointer; font-weight: bold;
     }
 
-    /* 7-Page Reader Styling */
+    /* 7-Page Reader Header */
     .comic-reader-header {
       background: #0f172a; color: white; padding: 16px 20px; border-radius: 12px; margin-bottom: 16px;
       display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
@@ -175,7 +175,7 @@
       width: 100%; height: 100%; object-fit: cover; display: block;
     }
     
-    /* Live Multi-Character Dialogue Box */
+    /* Live Dialogue Bubbles Container */
     .live-conversation-container {
       position: absolute; bottom: 12px; left: 14px; right: 14px;
       display: flex; flex-direction: column; gap: 6px;
@@ -196,7 +196,7 @@
       border-color: #ef4444; background: #fef2f2; align-self: flex-end; color: #991b1b;
     }
     .speech-dialogue-cloud.active-speaking {
-      border-width: 3px; transform: scale(1.02); box-shadow: 0 0 12px rgba(245, 158, 11, 0.8);
+      border-width: 3px; transform: scale(1.02); box-shadow: 0 0 14px rgba(245, 158, 11, 0.9);
     }
 
     .comic-story-desc {
@@ -204,7 +204,7 @@
       font-size: 15.5px; line-height: 1.8; color: #1e293b; font-weight: 600; margin-bottom: 18px;
     }
 
-    /* Page Controls */
+    /* Page Navigation Controls */
     .comic-nav-controls {
       display: flex; justify-content: space-between; align-items: center; gap: 12px;
       border-top: 2px solid #e2e8f0; padding-top: 16px;
@@ -257,7 +257,7 @@
 
   <!-- Top Announcement Bar -->
   <div class="top-bar">
-    <span>🎭 लाइव डायलॉग (मेल/फीमेल बातचीत) + साउंड इफ़ेक्ट्स व ऑटो-टर्न लाइव!</span>
+    <span>🎭 7-पेज सचित्र कॉमिक्स • लाइव मेल/फीमेल वॉयस, साउंड इफ़ेक्ट्स और ऑटो-टर्न लाइव!</span>
     <span>अक्षर डिजिटल स्टोर 2026</span>
   </div>
 
@@ -287,7 +287,7 @@
     <div class="sub-bar">
       <div class="sub-bar-inner">
         <button class="cat-btn active" onclick="filterCategory('all', this)">सभी संग्रह</button>
-        <button class="cat-btn" onclick="filterCategory('comics', this)">🎨 7-पेज कॉमिक्स (लाइव बातचीत)</button>
+        <button class="cat-btn" onclick="filterCategory('comics', this)">🎨 7-पेज कॉमिक्स (लाइव ड्रामा)</button>
         <button class="cat-btn" onclick="filterCategory('selfhelp', this)">🧘 आत्मविकास ई-बुक्स</button>
         <button class="cat-btn" onclick="filterCategory('career', this)">💼 करियर व नौकरी</button>
         <button class="cat-btn" onclick="filterCategory('finance', this)">💰 पैसे और बचत</button>
@@ -302,7 +302,7 @@
     <!-- Hero Banner -->
     <div class="hero-strip">
       <h2>पढ़िए, सीखिए, <br><span>अपने सपनों को उड़ान दीजिए</span></h2>
-      <p>हिंदी में 7-पृष्ठीय सचित्र कॉमिक्स, किरदारों की लाइव बातचीत (मेल-फीमेल वॉयस ड्रामा), साउंड इफ़ेक्ट्स और ई-पुस्तकों का आधुनिक संसार।</p>
+      <p>हिंदी में 7-पृष्ठीय सचित्र कॉमिक्स, किरदारों की लाइव बातचीत (मेल-फीमेल-घोस्ट वॉयस), धड़ाम व जादुई साउंड इफ़ेक्ट्स, बैकग्राउंड म्यूज़िक और ई-पुस्तकों का आधुनिक संसार।</p>
     </div>
 
     <!-- Section Heading -->
@@ -342,7 +342,7 @@
     </div>
   </div>
 
-  <!-- MODAL: ADMIN CREATOR -->
+  <!-- MODAL: ADMIN CREATOR (PRICE, PAYMENT GATEWAY & BOOKS) -->
   <div class="modal-overlay" id="adminPanelModal">
     <div class="modal-sheet" style="background:#1e293b; color:#fff; max-width: 540px;">
       <button class="modal-close-icon" style="color:#fff;" onclick="closeModal('adminPanelModal')">&times;</button>
@@ -381,7 +381,7 @@
     </div>
   </div>
 
-  <!-- MODAL: MULTI-PAGE ILLUSTRATED COMIC WITH LIVE CHARACTER VOICES & SFX -->
+  <!-- MODAL: MULTI-PAGE ILLUSTRATED COMIC (LIVE VOICES + SFX + AUTO FLIP) -->
   <div class="modal-overlay" id="multiPageReaderModal">
     <div class="modal-sheet">
       <button class="modal-close-icon" onclick="closeModal('multiPageReaderModal')">&times;</button>
@@ -400,13 +400,10 @@
         </div>
       </div>
 
-      <!-- AI Cartoon Illustrated Scene Canvas -->
+      <!-- Illustrated Scene Canvas -->
       <div class="comic-page-canvas">
         <img id="comicPageImage" src="" alt="Cartoon Scene">
-        <!-- Live Multi-Character Dialogue Bubbles -->
-        <div class="live-conversation-container" id="dialoguesContainer">
-          <!-- Injected dynamically -->
-        </div>
+        <div class="live-conversation-container" id="dialoguesContainer"></div>
       </div>
 
       <!-- Story Description -->
@@ -414,7 +411,7 @@
         कहानी का वर्णन...
       </div>
 
-      <!-- Suspense Box (Visible on Page 7) -->
+      <!-- Suspense Box (Page 7) -->
       <div class="suspense-final-box" id="suspenseEndingBox">
         <h4>⚡ सस्पेंस क्लाइमेक्स: क्या होगा आगे?</h4>
         <p id="suspenseEndingText">सस्पेंस...</p>
@@ -439,7 +436,7 @@
   <script>
     lucide.createIcons();
 
-    // Web Audio Synthesizer: Sound Effects (SFX) & Ambient BGM
+    // Sound FX (Door Slam, Wind, Chime) & Ambient BGM Synthesizer
     let audioCtx = null;
     let bgmInterval = null;
     let isAudioPlaying = false;
@@ -454,7 +451,7 @@
       }
     }
 
-    // SFX: Door Slam / Heavy Thud (धड़ाम इफ़ेक्ट)
+    // SFX: Door Slam (धड़ाम दरवाज़ा)
     function playDoorSlamSFX() {
       initAudioContext();
       try {
@@ -474,7 +471,7 @@
       } catch(e) {}
     }
 
-    // SFX: Spooky Ghost Wind Whistle
+    // SFX: Ghost Wind Whistle (भूतिया हवा)
     function playSpookyWindSFX() {
       initAudioContext();
       try {
@@ -494,7 +491,7 @@
       } catch(e) {}
     }
 
-    // SFX: Magic Comic Chime
+    // SFX: Magic Comic Chime (जादुई घंटी)
     function playComicChimeSFX() {
       initAudioContext();
       try {
@@ -568,7 +565,7 @@
       }
     }
 
-    // 7 Complete Pages for Champak with Multi-Character Conversations
+    // 7 Complete Pages for Champak with Real Dialogue Interactions
     const champak7Pages = [
       {
         pageNum: 1,
@@ -576,7 +573,7 @@
         mood: "funny",
         sfx: "chime",
         img: "https://image.pollinations.ai/prompt/scared-funny-cartoon-indian-man-champak-holding-torch-and-stick-walking-towards-creepy-haunted-haveli-palace-comic-art?width=750&height=400&nologo=true",
-        story: "गाँव के बाहर बनी सौ साल पुरानी हवेली के फाटक पर चंपक रात 12 बजे पहुँचा। गाँव की चमेली चाची ने शर्त लगाई थी।",
+        story: "गाँव के बाहर बनी सौ साल पुरानी हवेली के फाटक पर चंपक रात 12 बजे पहुँचा। गाँव की चमेली चाची ने 500 रुपये की शर्त लगाई थी।",
         dialogues: [
           { speaker: "female", name: "चाची", text: "चंपक! अगर तू अंदर गया तो 500 रुपये जीत जाएगा, नहीं तो कायर कहलाएगा!" },
           { speaker: "male", name: "चंपक", text: "अरे चाची, 500 रुपये की खातिर मैं यमराज के घर भी चाय पीकर आ सकता हूँ!" }
@@ -689,7 +686,7 @@
       }
     ];
 
-    // Other 19 comics with multi-character dialogues support
+    // Other 19 comics with 7 pages & live conversations
     const otherTitles = [
       "प्रोफ़ेसर गोलमाल और टाइम मशीन", "सुपर बंटी: रिमोट का रहस्य", "इंस्पेक्टर ढोलकिया और रसगुल्ला",
       "एलियन आया छत पर", "हॉस्टल रूम 404 का साया", "जादुई समोसा और चिंटू", "भूतिया शादी और पिंटू",
@@ -875,7 +872,7 @@
       }
     }
 
-    // LIVE SEQUENTIAL MULTI-VOICE DRAMA (Narrator -> Character 1 -> Character 2)
+    // LIVE MULTI-VOICE DRAMA (Narrator -> Character 1 -> Character 2)
     function playVoiceAndBGM() {
       if(!activeBook || !activeBook.pages) return;
       const p = activeBook.pages[currentPageIndex];
@@ -888,12 +885,11 @@
         btn.style.color = "#fff";
       }
 
-      // Trigger SFX matching the scene
+      // Trigger SFX matching scene
       if (p.sfx === 'slam') playDoorSlamSFX();
       else if (p.sfx === 'spooky') playSpookyWindSFX();
       else playComicChimeSFX();
 
-      // Start Adaptive Ambient BGM
       startAdaptiveBGM(p.mood || 'funny');
 
       if (!('speechSynthesis' in window)) return;
@@ -902,18 +898,16 @@
       const voices = window.speechSynthesis.getVoices();
       const hiVoice = voices.find(v => v.lang.startsWith('hi')) || null;
 
-      // 1. Narrator starts (Female/Crisp tone)
+      // Narrator starts (Female/Crisp tone)
       const uNarrator = new SpeechSynthesisUtterance(`${p.heading}। ${p.story}`);
       uNarrator.lang = 'hi-IN';
       if (hiVoice) uNarrator.voice = hiVoice;
-      uNarrator.pitch = 1.25; // Clear female narrator
+      uNarrator.pitch = 1.25;
       uNarrator.rate = 1.0;
 
-      // Chain dialogues sequentially with matching character voices
       function speakDialogueIndex(dIdx) {
         if (!isAudioPlaying) return;
         
-        // Remove previous active glow
         document.querySelectorAll('.speech-dialogue-cloud').forEach(el => el.classList.remove('active-speaking'));
 
         if (dIdx < p.dialogues.length) {
@@ -925,7 +919,6 @@
           uDlg.lang = 'hi-IN';
           if (hiVoice) uDlg.voice = hiVoice;
 
-          // Distinctive Character Voices
           if (dlg.speaker === 'female') {
             uDlg.pitch = 1.4; // Melodious Female Voice
             uDlg.rate = 1.05;
@@ -944,7 +937,7 @@
 
           window.speechSynthesis.speak(uDlg);
         } else {
-          // All dialogues completed -> Auto flip to next page
+          // Auto-flip to next page
           if (currentPageIndex < totalPages - 1) {
             autoFlipTimeout = setTimeout(() => {
               if (isAudioPlaying) {
