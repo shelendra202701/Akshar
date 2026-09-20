@@ -6,7 +6,7 @@
   <title>अक्षर - आधुनिक ई-बुक प्लेटफ़ॉर्म</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700;800&family=Rozha+One&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     :root {
@@ -29,7 +29,7 @@
       width: 40px; height: 40px; border-radius: 10px;
       background: linear-gradient(135deg, #6366f1, #3b82f6);
       display: flex; align-items: center; justify-content: center;
-      font-size: 20px; font-weight: bold; color: white;
+      font-size: 22px; font-weight: bold; color: white;
     }
     .logo-text h2 { font-size: 18px; font-weight: 700; color: #fff; }
     .logo-text span { font-size: 11px; color: #818cf8; }
@@ -59,61 +59,103 @@
     }
     .hero-banner h1 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
     .hero-banner p { color: var(--text-muted); font-size: 13px; line-height: 1.5; }
-    .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; }
+    .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
     .book-card {
-      background: #111827; border: 1px solid var(--border-card); border-radius: 14px;
-      padding: 12px; display: flex; flex-direction: column; gap: 10px;
+      background: #111827; border: 1px solid var(--border-card); border-radius: 16px;
+      padding: 14px; display: flex; flex-direction: column; gap: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    
+    /* 3D Realistic Book Cover */
+    .book-cover-wrap {
+      perspective: 800px;
+      display: flex;
+      justify-content: center;
+      padding: 6px 0;
     }
     .book-cover {
-      height: 220px; border-radius: 10px; padding: 16px;
-      display: flex; flex-direction: column; justify-content: space-between; color: white;
+      width: 100%; height: 280px; border-radius: 6px 14px 14px 6px;
+      padding: 20px 18px; display: flex; flex-direction: column; justify-content: space-between;
+      color: white; position: relative;
+      box-shadow: -6px 0 10px rgba(0,0,0,0.5), 6px 8px 18px rgba(0,0,0,0.4);
+      border-left: 5px solid rgba(255,255,255,0.25);
+      background-size: cover; background-position: center;
+      transition: transform 0.25s ease;
     }
-    .book-cover .badge {
-      align-self: flex-start; background: rgba(0,0,0,0.4);
-      padding: 4px 8px; border-radius: 6px; font-size: 11px;
+    .book-card:hover .book-cover {
+      transform: translateY(-4px) rotateY(-4deg);
     }
-    .book-cover h3 { font-size: 17px; line-height: 1.3; }
-    .book-meta h4 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+    .cover-badge {
+      align-self: flex-start; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+      padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.5px; border: 1px solid rgba(255,255,255,0.2);
+    }
+    .cover-title {
+      font-family: 'Rozha One', 'Noto Sans Devanagari', serif;
+      font-size: 22px; line-height: 1.25; text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+      margin-bottom: 6px;
+    }
+    .cover-tagline {
+      font-size: 12px; opacity: 0.9; line-height: 1.4; color: #e2e8f0;
+      background: rgba(0,0,0,0.3); padding: 6px 8px; border-radius: 6px;
+    }
+    .cover-author {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+      border-top: 1px solid rgba(255,255,255,0.25); padding-top: 6px; opacity: 0.85;
+    }
+
+    .book-meta h4 { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
     .book-meta span { font-size: 12px; color: #10b981; font-weight: 600; }
     .card-actions { display: flex; gap: 8px; margin-top: auto; }
     .btn-action {
-      flex: 1; padding: 8px; border-radius: 8px; font-size: 12px; font-weight: 600;
-      cursor: pointer; border: none; display: flex; align-items: center; justify-content: center; gap: 4px;
+      flex: 1; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 700;
+      cursor: pointer; border: none; display: flex; align-items: center; justify-content: center; gap: 6px;
     }
     .btn-read { background: #1e293b; color: white; border: 1px solid #334155; }
+    .btn-read:hover { background: #334155; }
     .btn-listen { background: #6366f1; color: white; }
+    .btn-listen:hover { background: #4f46e5; }
+    
     @media (max-width: 768px) {
       body { flex-direction: column; }
       aside { width: 100%; height: auto; position: static; }
       .nav-links { flex-direction: row; overflow-x: auto; }
     }
+    
+    /* Modal / Reader */
     .modal-overlay {
       display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.8); z-index: 1000; align-items: center; justify-content: center;
-      padding: 16px;
+      background: rgba(0, 0, 0, 0.85); z-index: 1000; align-items: center; justify-content: center;
+      padding: 16px; backdrop-filter: blur(4px);
     }
     .modal-content {
-      background: #ffffff; color: #1e293b; width: 100%; max-width: 700px; max-height: 85vh;
-      border-radius: 14px; overflow-y: auto; padding: 24px; position: relative;
+      background: #ffffff; color: #1e293b; width: 100%; max-width: 720px; max-height: 88vh;
+      border-radius: 16px; overflow-y: auto; padding: 24px; position: relative;
     }
     .modal-close {
-      position: absolute; top: 12px; right: 14px; font-size: 26px;
+      position: absolute; top: 12px; right: 16px; font-size: 28px;
       color: #64748b; cursor: pointer; border: none; background: transparent;
     }
-    .reader-header { border-bottom: 2px solid #f1f5f9; padding-bottom: 12px; margin-bottom: 16px; }
-    .reader-header h2 { font-size: 20px; color: #0f172a; margin-bottom: 4px; }
-    .reader-header p { color: #64748b; font-size: 13px; }
-    .chapter { margin-bottom: 20px; }
-    .chapter h3 { font-size: 16px; color: #2563eb; margin-bottom: 6px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; }
-    .chapter p { font-size: 14px; line-height: 1.6; margin-bottom: 6px; color: #334155; }
-    .tip-box { background: #f8fafc; border-left: 4px solid #3b82f6; padding: 10px; margin: 8px 0; border-radius: 4px; font-size: 13px; }
+    
+    .reader-cover-banner {
+      background: linear-gradient(135deg, #064e3b, #047857);
+      color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px;
+    }
+    .reader-cover-banner h2 { font-size: 22px; margin-bottom: 4px; font-family: 'Rozha One', serif; }
+    .reader-cover-banner p { font-size: 13px; opacity: 0.9; }
+
+    .chapter { margin-bottom: 22px; }
+    .chapter h3 { font-size: 17px; color: #1e3a8a; margin-bottom: 6px; border-bottom: 2px solid #e2e8f0; padding-bottom: 4px; }
+    .chapter p { font-size: 14.5px; line-height: 1.7; margin-bottom: 8px; color: #334155; }
+    .tip-box { background: #f0fdf4; border-left: 4px solid #10b981; padding: 12px; margin: 10px 0; border-radius: 6px; font-size: 13.5px; color: #065f46; font-weight: 600; }
+    
     .modal-footer {
       display: flex; justify-content: space-between; align-items: center;
-      border-top: 1px solid #e2e8f0; padding-top: 14px; margin-top: 20px;
+      border-top: 1px solid #e2e8f0; padding-top: 16px; margin-top: 20px;
     }
     .btn-print {
-      background: #0f172a; color: #fff; padding: 8px 14px; border-radius: 8px;
-      font-size: 12px; font-weight: 600; cursor: pointer; border: none; display: flex; align-items: center; gap: 4px;
+      background: #0f172a; color: #fff; padding: 10px 16px; border-radius: 8px;
+      font-size: 13px; font-weight: 600; cursor: pointer; border: none; display: flex; align-items: center; gap: 6px;
     }
   </style>
 </head>
@@ -131,6 +173,7 @@
       <li class="nav-link"><i data-lucide="headphones"></i> ऑडियो</li>
     </ul>
   </aside>
+
   <main>
     <header>
       <div class="search-box">
@@ -141,31 +184,46 @@
         <i data-lucide="plus"></i> नई ई-बुक
       </button>
     </header>
+
     <div class="hero-banner">
       <h1>अपनी सोच। आपकी किताब।</h1>
       <p>हिंदी में व्यावहारिक ई-बुक्स पढ़ें, AI वॉइस से सुनें और 1-क्लिक में प्रिंटेबल PDF डाउनलोड करें।</p>
     </div>
+
     <div class="books-grid">
+      <!-- 3D Book 1 with Cover Story -->
       <div class="book-card">
-        <div class="book-cover" style="background: linear-gradient(135deg, #064e3b, #047857);">
-          <span class="badge">ऑडियो + PDF</span>
-          <h3>छोटी आदतें, बड़ा बदलाव</h3>
-          <p style="font-size: 11px; opacity: 0.8;">हर दिन 1% बेहतर</p>
+        <div class="book-cover-wrap">
+          <div class="book-cover" style="background: linear-gradient(145deg, #064e3b 0%, #065f46 50%, #022c22 100%);">
+            <span class="cover-badge">★ बेस्टसेलर संस्करण</span>
+            <div>
+              <h3 class="cover-title">छोटी आदतें, बड़ा बदलाव</h3>
+              <p class="cover-tagline">प्रतिदिन सिर्फ 1% सुधार से जीवन और काम को बदलने का सरल मार्गदर्शिका।</p>
+            </div>
+            <div class="cover-author">अक्षर संपादकीय बोर्ड • संस्करण 2026</div>
+          </div>
         </div>
         <div class="book-meta">
           <h4>छोटी आदतें, बड़ा बदलाव</h4>
-          <span>4 अध्याय • मुफ़्त नमूना</span>
+          <span>4 अध्याय • मुफ़्त सम्पूर्ण संस्करण</span>
         </div>
         <div class="card-actions">
           <button class="btn-action btn-read" onclick="openReader()"><i data-lucide="book-open"></i> पढ़ें</button>
           <button class="btn-action btn-listen" onclick="speakText()"><i data-lucide="headphones"></i> सुनें</button>
         </div>
       </div>
+
+      <!-- 3D Book 2 with Cover Story -->
       <div class="book-card">
-        <div class="book-cover" style="background: linear-gradient(135deg, #701a75, #a21caf);">
-          <span class="badge">करियर गाइड</span>
-          <h3>पहली नौकरी की तैयारी</h3>
-          <p style="font-size: 11px; opacity: 0.8;">इंटरव्यू व रेज़्युमे</p>
+        <div class="book-cover-wrap">
+          <div class="book-cover" style="background: linear-gradient(145deg, #4c1d95 0%, #6d28d9 50%, #2e1065 100%);">
+            <span class="cover-badge">करियर गाइड</span>
+            <div>
+              <h3 class="cover-title">पहली नौकरी की तैयारी</h3>
+              <p class="cover-tagline">शानदार रेज़्युमे, इंटरव्यू में आत्मविश्वास और शुरुआती वेतन पर सही चर्चा।</p>
+            </div>
+            <div class="cover-author">करियर डेस्क • मुफ़्त गाइड</div>
+          </div>
         </div>
         <div class="book-meta">
           <h4>पहली नौकरी की तैयारी</h4>
@@ -178,39 +236,48 @@
       </div>
     </div>
   </main>
+
+  <!-- Interactive Reader Modal with Book Cover Banner -->
   <div class="modal-overlay" id="readerModal">
     <div class="modal-content">
       <button class="modal-close" onclick="closeReader()">&times;</button>
-      <div class="reader-header">
+      
+      <div class="reader-cover-banner">
         <h2>छोटी आदतें, बड़ा बदलाव</h2>
-        <p>हर दिन बेहतर बनने की एक सरल शुरुआत • अक्षर संपादकीय</p>
+        <p>प्रतिदिन सिर्फ 1% सुधार से जीवन बदलने की व्यावहारिक मार्गदर्शिका • अक्षर डिजिटल लाइब्रेरी</p>
       </div>
+
       <div class="chapter">
-        <h3>1. लक्ष्य नहीं, अगला छोटा कदम</h3>
-        <p>"मुझे अधिक पढ़ना है" एक इच्छा हो सकती है, लेकिन <strong>"रात को फोन अलग रखने के बाद दो पन्ने पढ़ूँगा"</strong> एक स्पष्ट और करने योग्य काम है। शुरुआत में ऐसा काम चुनें जो सबसे व्यस्त दिन में भी संभव लगे।</p>
-        <div class="tip-box">अभ्यास: “मैं [मौजूदा काम] के बाद [स्थान] पर [छोटा काम] करूँगा।”</div>
+        <h3>1. लक्ष्य नहीं, अगला छोटा कदम चुनें</h3>
+        <p>"मुझे बहुत पढ़ना है" केवल एक विचार है। लेकिन <strong>"सोने से पहले फोन दूर रखकर 2 पन्ने पढ़ना"</strong> एक पक्की आदत की शुरुआत है। ऐसे कदम से शुरू करें जिसे करने में 2 मिनट से ज़्यादा न लगे।</p>
+        <div class="tip-box">स्वर्ण नियम: "मैं [मौजूदा काम] के बाद [स्थान] पर [नया छोटा काम] करूँगा।"</div>
       </div>
+
       <div class="chapter">
-        <h3>2. माहौल को मददगार बनाएँ</h3>
-        <p>अच्छी आदत के लिए केवल इच्छाशक्ति पर निर्भर न रहें। किताब को मेज़ पर खुली रखें, पानी की बोतल पास रखें और पढ़ते समय फोन नोटिफिकेशन बंद रखें।</p>
+        <h3>2. माहौल को अपना सहयोगी बनाएँ</h3>
+        <p>इच्छाशक्ति से ज़्यादा ताकतवर आपका माहौल होता है। जो काम करना है उसे आसान बनाइए—किताब हमेशा मेज़ पर सामने रखें और ध्यान भटकाने वाली चीज़ों को नज़र से दूर रखें।</p>
       </div>
+
       <div class="chapter">
-        <h3>3. चूक होने पर वापसी</h3>
-        <p>एक दिन आदत छूटना असफलता नहीं है। खुद को दोष देने के बजाय शांत होकर वजह समझें। अगले दिन तुरंत न्यूनतम रूप से वापस शुरू करें।</p>
+        <h3>3. कभी चूक हो तो वापसी का नियम</h3>
+        <p>एक दिन का नागा होना सामान्य बात है, लेकिन लगातार दो दिन छोड़ना नई खराब आदत बना देता है। जब भी छूटे, बिना खुद को कोसे अगले ही दिन 2 मिनट के लिए फिर से शुरू कर दें।</p>
       </div>
+
       <div class="chapter">
-        <h3>4. अपनी सात दिन की योजना</h3>
-        <p><strong>दिन 1:</strong> एक आदत और उसका 2 मिनट वाला रूप चुनें।<br>
-        <strong>दिन 2:</strong> उसे किसी मौजूदा आदत से जोड़ें।<br>
-        <strong>दिन 3:</strong> सामान पहले से तैयार रखें।<br>
-        <strong>दिन 4 से 7:</strong> ट्रैकिंग और समीक्षा करें।</p>
+        <h3>4. आपकी 7-दिवसीय कार्ययोजना</h3>
+        <p><strong>दिन 1:</strong> अपनी आदत का 2 मिनट का रूप तय करें।<br>
+        <strong>दिन 2:</strong> उसे सुबह की चाय या किसी पुरानी आदत से जोड़ें।<br>
+        <strong>दिन 3:</strong> किताबें और ज़रूरी सामान रात को ही मेज़ पर रखें।<br>
+        <strong>दिन 4 से 7:</strong> कैलेंडर पर टिक लगाकर अपनी निरंतरता बनाए रखें।</p>
       </div>
+
       <div class="modal-footer">
-        <span style="font-size: 12px; color: #64748b;">अक्षर डिजिटल लाइब्रेरी</span>
+        <span style="font-size: 13px; color: #64748b;">अक्षर पब्लिशिंग • 2026</span>
         <button class="btn-print" onclick="window.print()"><i data-lucide="printer"></i> प्रिंट / PDF सेव करें</button>
       </div>
     </div>
   </div>
+
   <script>
     lucide.createIcons();
     function openReader() {
@@ -225,7 +292,7 @@
     function speakText() {
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
-        const text = "छोटी आदतें, बड़ा बदलाव। हर दिन बेहतर बनने की एक सरल शुरुआत। अध्याय एक: लक्ष्य नहीं, अगला छोटा कदम चुनें।";
+        const text = "छोटी आदतें, बड़ा बदलाव। प्रतिदिन सिर्फ 1% सुधार से जीवन बदलने की व्यावहारिक मार्गदर्शिका। अध्याय एक: लक्ष्य नहीं, अगला छोटा कदम चुनें।";
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'hi-IN';
         window.speechSynthesis.speak(utterance);
