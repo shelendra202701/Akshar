@@ -64,7 +64,7 @@
     .btn-header:hover { background: #1e293b; color: var(--gold-btn); }
     .btn-header.admin { background: var(--gold-btn); color: #0b1120; border: none; }
 
-    /* Category Filter Bar */
+    /* Category Filter Navigation Bar */
     .sub-bar {
       background: #0e1629; border-bottom: 1px solid var(--border-card); padding: 10px 20px;
       overflow-x: auto; white-space: nowrap;
@@ -257,7 +257,7 @@
 
   <!-- Top Announcement Bar -->
   <div class="top-bar">
-    <span>🎭 7-पेज सचित्र कॉमिक्स • लाइव मेल/फीमेल वॉयस, साउंड इफ़ेक्ट्स और ऑटो-टर्न लाइव!</span>
+    <span>🎭 7-पेज सचित्र कॉमिक्स • स्पष्ट प्राकृतिक आवाज़, लाइव मेल/फीमेल डायलॉग और ऑटो-टर्न लाइव!</span>
     <span>अक्षर डिजिटल स्टोर 2026</span>
   </div>
 
@@ -302,7 +302,7 @@
     <!-- Hero Banner -->
     <div class="hero-strip">
       <h2>पढ़िए, सीखिए, <br><span>अपने सपनों को उड़ान दीजिए</span></h2>
-      <p>हिंदी में 7-पृष्ठीय सचित्र कॉमिक्स, किरदारों की लाइव बातचीत (मेल-फीमेल-घोस्ट वॉयस), धड़ाम व जादुई साउंड इफ़ेक्ट्स, बैकग्राउंड म्यूज़िक और ई-पुस्तकों का आधुनिक संसार।</p>
+      <p>हिंदी में 7-पृष्ठीय सचित्र कॉमिक्स, किरदारों की लाइव बातचीत (स्पष्ट प्राकृतिक आवाज़), धड़ाम व जादुई साउंड इफ़ेक्ट्स, बैकग्राउंड म्यूज़िक और ई-पुस्तकों का आधुनिक संसार।</p>
     </div>
 
     <!-- Section Heading -->
@@ -436,7 +436,7 @@
   <script>
     lucide.createIcons();
 
-    // Sound FX (Door Slam, Wind, Chime) & Ambient BGM Synthesizer
+    // Sound FX & Ambient BGM Synthesizer
     let audioCtx = null;
     let bgmInterval = null;
     let isAudioPlaying = false;
@@ -872,8 +872,57 @@
       }
     }
 
-    // LIVE MULTI-VOICE DRAMA (Narrator -> Character 1 -> Character 2)
-    function playVoiceAndBGM() {
+    // Helper: Select natural human Hindi voice
+    function getBestHindiVoice(gender) {
+      const voices = window.speechSynthesis.getVoices();
+      if (!voices || voices.length === 0) return null;
+      
+      const hiVoices = voices.filter(v => v.lang && v.lang.toLowerCase().replace('_', '-').startsWith('hi'));
+      if (hiVoices.length === 0) return null;
+
+      if (gender === 'female') {
+        const f = hiVoices.find(v => /female|women|girl|zira|swara/i.test(v.name));
+        return f || hiVoices[0];
+      } else {
+        const m = hiVoices.find(v => /male|man|boy|madhav|david/i.test(v.name));
+        return m || hiVoices[hiVoices.length > 1 ? 1 : 0];
+      }
+    }
+
+    // Reliable sequential speech function (prevents chrome audio queue dropping)
+    function speakTextPromise(text, options) {
+      return new Promise((resolve) => {
+        if (!isAudioPlaying) {
+          resolve();
+          return;
+        }
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'hi-IN';
+        if (options.voice) u.voice = options.voice;
+        u.pitch = options.pitch !== undefined ? options.pitch : 1.0;
+        u.rate = options.rate !== undefined ? options.rate : 1.0;
+        
+        let hasEnded = false;
+        const done = () => {
+          if (!hasEnded) {
+            hasEnded = true;
+            resolve();
+          }
+        };
+
+        u.onend = done;
+        u.onerror = done;
+        
+        // Mobile chrome failsafe: resume synthesis if paused
+        if (window.speechSynthesis.paused) {
+          window.speechSynthesis.resume();
+        }
+        window.speechSynthesis.speak(u);
+      });
+    }
+
+    // CONTINUOUS NON-STOP AUDIO & DIALOGUE RUNNER
+    async function playVoiceAndBGM() {
       if(!activeBook || !activeBook.pages) return;
       const p = activeBook.pages[currentPageIndex];
       const totalPages = activeBook.pages.length;
@@ -895,72 +944,70 @@
       if (!('speechSynthesis' in window)) return;
       window.speechSynthesis.cancel();
 
-      const voices = window.speechSynthesis.getVoices();
-      const hiVoice = voices.find(v => v.lang.startsWith('hi')) || null;
+      const fVoice = getBestHindiVoice('female');
+      const mVoice = getBestHindiVoice('male');
 
-      // Narrator starts (Female/Crisp tone)
-      const uNarrator = new SpeechSynthesisUtterance(`${p.heading}। ${p.story}`);
-      uNarrator.lang = 'hi-IN';
-      if (hiVoice) uNarrator.voice = hiVoice;
-      uNarrator.pitch = 1.25;
-      uNarrator.rate = 1.0;
+      // 1. Narrator speaks with natural female voice (No vibrato/shaking)
+      await speakTextPromise(`${p.heading}। ${p.story}`, {
+        voice: fVoice,
+        pitch: 1.08, // crisp, natural female tone (no tremble)
+        rate: 0.98
+      });
 
-      function speakDialogueIndex(dIdx) {
+      if (!isAudioPlaying) return;
+
+      // 2. Speak all character dialogues sequentially with visual highlights
+      for (let dIdx = 0; dIdx < p.dialogues.length; dIdx++) {
         if (!isAudioPlaying) return;
         
+        const dlg = p.dialogues[dIdx];
         document.querySelectorAll('.speech-dialogue-cloud').forEach(el => el.classList.remove('active-speaking'));
+        const targetBox = document.getElementById(`dlg_box_${dIdx}`);
+        if (targetBox) targetBox.classList.add('active-speaking');
 
-        if (dIdx < p.dialogues.length) {
-          const dlg = p.dialogues[dIdx];
-          const targetBox = document.getElementById(`dlg_box_${dIdx}`);
-          if (targetBox) targetBox.classList.add('active-speaking');
+        let voiceToUse = mVoice || fVoice;
+        let pitchVal = 0.88;
+        let rateVal = 1.0;
 
-          const uDlg = new SpeechSynthesisUtterance(`${dlg.name} कहते हैं: ${dlg.text}`);
-          uDlg.lang = 'hi-IN';
-          if (hiVoice) uDlg.voice = hiVoice;
-
-          if (dlg.speaker === 'female') {
-            uDlg.pitch = 1.4; // Melodious Female Voice
-            uDlg.rate = 1.05;
-          } else if (dlg.speaker === 'ghost') {
-            uDlg.pitch = 0.45; // Deep Creepy Ghost Voice
-            uDlg.rate = 0.85;
-          } else {
-            uDlg.pitch = 0.75; // Expressive Male Hero Voice
-            uDlg.rate = 1.05;
-          }
-
-          uDlg.onend = () => {
-            if (targetBox) targetBox.classList.remove('active-speaking');
-            speakDialogueIndex(dIdx + 1);
-          };
-
-          window.speechSynthesis.speak(uDlg);
+        if (dlg.speaker === 'female') {
+          voiceToUse = fVoice;
+          pitchVal = 1.08;
+          rateVal = 1.0;
+        } else if (dlg.speaker === 'ghost') {
+          voiceToUse = mVoice;
+          pitchVal = 0.65; // deep eerie ghost voice
+          rateVal = 0.88;
         } else {
-          // Auto-flip to next page
-          if (currentPageIndex < totalPages - 1) {
-            autoFlipTimeout = setTimeout(() => {
-              if (isAudioPlaying) {
-                currentPageIndex++;
-                renderCurrentPage(true);
-              }
-            }, 1400);
-          } else {
-            autoFlipTimeout = setTimeout(() => {
-              stopVoiceAndBGM();
-              alert("भाग 1 की लाइव ऑडियो ड्रामा समाप्त हुई! भाग 2 जल्द आ रहा है।");
-            }, 2000);
-          }
+          voiceToUse = mVoice;
+          pitchVal = 0.88; // solid natural male voice
+          rateVal = 1.02;
         }
+
+        await speakTextPromise(`${dlg.name} कहते हैं: ${dlg.text}`, {
+          voice: voiceToUse,
+          pitch: pitchVal,
+          rate: rateVal
+        });
+
+        if (targetBox) targetBox.classList.remove('active-speaking');
       }
 
-      uNarrator.onend = () => {
-        if (isAudioPlaying) {
-          speakDialogueIndex(0);
-        }
-      };
+      if (!isAudioPlaying) return;
 
-      window.speechSynthesis.speak(uNarrator);
+      // 3. Page finished -> Automatically flip to next page without touching any button!
+      if (currentPageIndex < totalPages - 1) {
+        autoFlipTimeout = setTimeout(() => {
+          if (isAudioPlaying) {
+            currentPageIndex++;
+            renderCurrentPage(true); // continue auto-playing seamlessly!
+          }
+        }, 1200);
+      } else {
+        autoFlipTimeout = setTimeout(() => {
+          stopVoiceAndBGM();
+          alert("भाग 1 की लाइव ऑडियो ड्रामा समाप्त हुई! भाग 2 जल्द आ रहा है।");
+        }, 2000);
+      }
     }
 
     function stopVoiceAndBGM() {
