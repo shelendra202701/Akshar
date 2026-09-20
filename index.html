@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>अक्षर (Akshar) - संपूर्ण ई-पुस्तकालय एवं कॉमिक्स</title>
+  <title>अक्षर (Akshar) - बहु-पृष्ठीय सचित्र कॉमिक्स एवं ई-पुस्तकालय</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+Devanagari:wght@500;600;700;800&family=Rozha+One&display=swap" rel="stylesheet">
@@ -15,7 +15,6 @@
       --gold-btn: #f59e0b;
       --gold-hover: #d97706;
       --text-white: #ffffff;
-      --text-muted: #94a3b8;
       --border-card: rgba(255, 255, 255, 0.12);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Noto Sans Devanagari', 'Plus Jakarta Sans', sans-serif; }
@@ -145,41 +144,70 @@
       align-items: center; justify-content: center; padding: 16px;
     }
     .modal-sheet {
-      background: #1e293b; border: 1px solid #334155; width: 100%; max-width: 550px;
-      max-height: 90vh; border-radius: 18px; overflow-y: auto; padding: 26px; position: relative;
+      background: #ffffff; color: #0f172a; width: 100%; max-width: 780px;
+      max-height: 92vh; border-radius: 18px; overflow-y: auto; padding: 24px; position: relative;
     }
     .modal-close-icon {
       position: absolute; top: 14px; right: 16px; background: none; border: none;
-      color: #cbd5e1; font-size: 28px; cursor: pointer;
+      color: #64748b; font-size: 28px; cursor: pointer; font-weight: bold;
     }
 
-    /* Forms */
+    /* Comic Multi-Page Reader Styling */
+    .comic-reader-header {
+      background: #0f172a; color: white; padding: 16px 20px; border-radius: 12px; margin-bottom: 16px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+    }
+    .page-indicator-pill {
+      background: var(--gold-btn); color: #0b1120; font-size: 12.5px; font-weight: 900;
+      padding: 4px 12px; border-radius: 20px;
+    }
+
+    /* 6 to 7 Page Scene Visual Canvas */
+    .comic-page-canvas {
+      border: 3px solid #0f172a; border-radius: 14px; overflow: hidden; background: #000;
+      position: relative; margin-bottom: 16px; height: 320px;
+    }
+    .comic-page-canvas img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .speech-dialogue-cloud {
+      position: absolute; bottom: 16px; left: 16px; right: 16px;
+      background: rgba(255, 255, 255, 0.95); border: 2px solid #000; border-radius: 14px;
+      padding: 10px 16px; font-size: 14.5px; font-weight: 800; color: #0f172a;
+      box-shadow: 3px 3px 0 #000;
+    }
+
+    .comic-story-desc {
+      background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px;
+      font-size: 15.5px; line-height: 1.8; color: #1e293b; font-weight: 600; margin-bottom: 18px;
+    }
+
+    /* Pagination Navigation Controls */
+    .comic-nav-controls {
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      border-top: 2px solid #e2e8f0; padding-top: 16px;
+    }
+    .btn-page-nav {
+      background: #0f172a; color: #fff; border: none; padding: 10px 18px; border-radius: 8px;
+      font-size: 14px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 6px;
+    }
+    .btn-page-nav:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-page-nav.next { background: var(--gold-btn); color: #0b1120; }
+
+    /* Suspense Final Page 7 Box */
+    .suspense-final-box {
+      display: none; background: #fef2f2; border: 3px dashed #ef4444; border-radius: 14px;
+      padding: 22px; text-align: center; margin-top: 10px;
+    }
+    .suspense-final-box h4 { color: #dc2626; font-size: 20px; font-weight: 900; margin-bottom: 6px; }
+    .suspense-final-box p { font-size: 15px; color: #991b1b; font-weight: 700; line-height: 1.6; }
+
+    /* Admin Form Controls */
     .form-ctrl { margin-bottom: 14px; }
     .form-ctrl label { display: block; font-size: 13.5px; font-weight: 700; margin-bottom: 6px; color: #cbd5e1; }
     .form-ctrl input, .form-ctrl select {
       width: 100%; padding: 11px 14px; border-radius: 8px; border: 1px solid #334155;
       background: #0b1120; color: #fff; font-size: 14px; outline: none;
-    }
-    .form-ctrl input:focus, .form-ctrl select:focus { border-color: var(--gold-btn); }
-
-    /* Reader & Comic Viewer Styling */
-    .reader-sheet { background: #ffffff; color: #0f172a; max-width: 760px; }
-    .reader-banner { background: #064e3b; color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
-    .reader-banner h3 { font-size: 22px; font-family: 'Rozha One', serif; }
-    .chapter-box { margin-bottom: 20px; }
-    .chapter-box h4 { font-size: 17px; font-weight: 800; color: #1e3a8a; border-bottom: 2px solid #e2e8f0; padding-bottom: 4px; margin-bottom: 8px; }
-    .chapter-box p { font-size: 15px; line-height: 1.8; color: #1e293b; }
-
-    /* Comic Illustrated View */
-    .comic-art-wrap {
-      width: 100%; height: 260px; border-radius: 12px; overflow: hidden; margin-bottom: 16px;
-      position: relative; border: 2px solid #0f172a;
-    }
-    .comic-art-wrap img { width: 100%; height: 100%; object-fit: cover; }
-    .comic-speech {
-      position: absolute; bottom: 12px; left: 14px; right: 14px; background: rgba(255,255,255,0.95);
-      border: 2px solid #000; border-radius: 12px; padding: 8px 14px; font-weight: 800; font-size: 13.5px;
-      color: #000; box-shadow: 2px 2px 0 #000;
     }
 
     /* Mobile Bottom App Bar */
@@ -192,14 +220,14 @@
       display: flex; flex-direction: column; align-items: center; gap: 4px;
       color: #cbd5e1; font-size: 12px; font-weight: 700; background: none; border: none; cursor: pointer;
     }
-    .app-tab.active, .app-tab:hover { color: var(--gold-btn); }
+    .app-tab.active { color: var(--gold-btn); }
     .app-tab i { width: 22px; height: 22px; }
 
     @media (max-width: 768px) {
       .app-bottom-bar { display: flex; }
       .search-box-wrap, .top-bar { display: none; }
       .hero-strip h2 { font-size: 24px; }
-      .reader-sheet { padding: 18px; }
+      .comic-page-canvas { height: 230px; }
     }
   </style>
 </head>
@@ -207,7 +235,7 @@
 
   <!-- Top Announcement Bar -->
   <div class="top-bar">
-    <span>🎨 20 कॉमिक्स (भाग 1) कार्टून चित्रों के साथ लाइव • अक्षर डिजिटल स्टोर</span>
+    <span>🎨 7-पेज सचित्र कार्टून कॉमिक्स (भाग 1) लाइव • अक्षर डिजिटल पुस्तकालय</span>
     <span>संस्करण 2026</span>
   </div>
 
@@ -218,7 +246,7 @@
         <div class="brand-logo-icon">अ</div>
         <div class="brand-title-wrap">
           <h1>अक्षर.</h1>
-          <span>पुस्तकालय व कॉमिक्स</span>
+          <span>सचित्र कॉमिक्स एवं बुक्स</span>
         </div>
       </div>
 
@@ -237,8 +265,8 @@
     <div class="sub-bar">
       <div class="sub-bar-inner">
         <button class="cat-btn active" onclick="filterCategory('all', this)">सभी संग्रह</button>
-        <button class="cat-btn" onclick="filterCategory('comics', this)">🎨 कॉमिक्स (भाग 1)</button>
-        <button class="cat-btn" onclick="filterCategory('selfhelp', this)">🧘 आत्मविकास</button>
+        <button class="cat-btn" onclick="filterCategory('comics', this)">🎨 7-पेज कॉमिक्स (भाग 1)</button>
+        <button class="cat-btn" onclick="filterCategory('selfhelp', this)">🧘 आत्मविकास ई-बुक्स</button>
         <button class="cat-btn" onclick="filterCategory('career', this)">💼 करियर व नौकरी</button>
         <button class="cat-btn" onclick="filterCategory('finance', this)">💰 पैसे और बचत</button>
         <button class="cat-btn" onclick="filterCategory('tech', this)">🚀 तकनीक व AI</button>
@@ -252,10 +280,10 @@
     <!-- Hero Banner -->
     <div class="hero-strip">
       <h2>पढ़िए, सीखिए, <br><span>अपने सपनों को उड़ान दीजिए</span></h2>
-      <p>हिंदी में ई-बुक्स और कार्टून चित्रों से सजी 20 सस्पेंस-कॉमेडी कॉमिक्स की संपूर्ण डिजिटल दुनिया।</p>
+      <p>हिंदी में 7-पृष्ठीय एनिमेटेड कार्टून सीन्स वाली कॉमिक्स, व्यावहारिक ई-बुक्स और ऑडियो वॉइस की डिजिटल दुनिया।</p>
     </div>
 
-    <!-- Dynamic Section Heading -->
+    <!-- Section Heading -->
     <div class="section-heading">
       <h3 id="currentCategoryTitle">सभी पुस्तकें एवं कॉमिक्स</h3>
       <span style="font-size: 13.5px; color: var(--gold-btn); font-weight: 700;" id="itemCountBadge">कुल संग्रह</span>
@@ -275,8 +303,8 @@
 
   <!-- MODAL: LOGIN / REGISTER -->
   <div class="modal-overlay" id="userAuthModal">
-    <div class="modal-sheet" style="max-width: 420px;">
-      <button class="modal-close-icon" onclick="closeModal('userAuthModal')">&times;</button>
+    <div class="modal-sheet" style="background:#1e293b; color:#fff; max-width: 420px;">
+      <button class="modal-close-icon" style="color:#fff;" onclick="closeModal('userAuthModal')">&times;</button>
       <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 6px;">पाठक प्रवेश / पंजीकरण</h3>
       <p style="font-size: 13.5px; color: #94a3b8; margin-bottom: 18px;">अपनी पसंदीदा किताबों और कॉमिक्स तक पहुँचें।</p>
       
@@ -294,8 +322,8 @@
 
   <!-- MODAL: ADMIN CREATOR (PRICE, PAYMENT GATEWAY & BOOKS) -->
   <div class="modal-overlay" id="adminPanelModal">
-    <div class="modal-sheet">
-      <button class="modal-close-icon" onclick="closeModal('adminPanelModal')">&times;</button>
+    <div class="modal-sheet" style="background:#1e293b; color:#fff; max-width: 540px;">
+      <button class="modal-close-icon" style="color:#fff;" onclick="closeModal('adminPanelModal')">&times;</button>
       <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
         <span style="background: #dc2626; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 800;">एडमिन स्टूडियो</span>
         <h3 style="font-size: 20px; font-weight: 800;">नई पुस्तक / कॉमिक्स जोड़ें</h3>
@@ -305,98 +333,79 @@
         <label>शीर्षक (Title)</label>
         <input type="text" id="newBookTitle" placeholder="किताब या कॉमिक्स का नाम">
       </div>
-
       <div class="form-ctrl">
         <label>लेखक / रचनाकार</label>
         <input type="text" id="newBookAuthor" placeholder="लेखक का नाम">
       </div>
-
       <div class="form-ctrl">
         <label>कैटेगरी (Category)</label>
         <select id="newBookCategory">
+          <option value="comics">7-पेज कॉमिक्स (Comics Part 1)</option>
           <option value="selfhelp">आत्मविकास (Self-Help)</option>
           <option value="career">करियर व नौकरी (Career)</option>
           <option value="finance">पैसे और बचत (Finance)</option>
           <option value="tech">तकनीक व AI (Tech)</option>
-          <option value="comics">कॉमिक्स (Comics Part 1)</option>
         </select>
       </div>
-
       <div class="form-ctrl">
-        <label>मूल्य निर्धारण (Pricing Rule)</label>
-        <select id="newBookPricing" onchange="togglePriceInput()">
-          <option value="free">मुफ़्त (Free for all)</option>
-          <option value="paid">सशुल्क (Paid Book)</option>
-        </select>
+        <label>मूल्य (₹ Price)</label>
+        <input type="text" id="newBookPrice" placeholder="उदा. मुफ़्त या ₹99">
       </div>
-
-      <div class="form-ctrl" id="priceWrap" style="display: none;">
-        <label>कीमत (₹ Price)</label>
-        <input type="number" id="newBookPrice" placeholder="उदा. 99 या 149">
-      </div>
-
       <div class="form-ctrl">
         <label>पेमेंट गेटवे / UPI आईडी</label>
         <input type="text" id="newBookGateway" placeholder="उदा. business@upi">
       </div>
-
-      <div class="form-ctrl">
-        <label>कवर इमेज URL (वैकल्पिक)</label>
-        <input type="text" id="newBookImage" placeholder="https://...">
-      </div>
-
       <button class="btn-action" onclick="saveNewBookFromAdmin()">किताब प्रकाशित करें (Publish Live)</button>
     </div>
   </div>
 
-  <!-- MODAL: E-BOOK READER -->
-  <div class="modal-overlay" id="eBookReaderModal">
-    <div class="modal-sheet reader-sheet">
-      <button class="modal-close-icon" style="color: #0f172a;" onclick="closeModal('eBookReaderModal')">&times;</button>
-      <div class="reader-banner">
-        <h3 id="readerBookTitle">छोटी आदतें, बड़ा बदलाव</h3>
-        <p>प्रतिदिन 1% सुधार की वैज्ञानिक कला • संपूर्ण ई-पुस्तकालय</p>
-      </div>
-      <div class="chapter-box">
-        <h4>अध्याय 1: लक्ष्य नहीं, अगला छोटा कदम चुनें</h4>
-        <p>"मुझे बहुत पढ़ना है" केवल एक विचार है। लेकिन <strong>"सोने से पहले 2 पन्ने पढ़ना"</strong> एक पक्की आदत है। शुरुआत हमेशा 2 मिनट वाले नियम से करें।</p>
-      </div>
-      <div class="chapter-box">
-        <h4>अध्याय 2: माहौल को अपना सहयोगी बनाएँ</h4>
-        <p>इच्छाशक्ति से अधिक महत्वपूर्ण आपका माहौल होता है। किताब को मेज़ पर खुली रखें और ध्यान भटकाने वाले नोटिफिकेशन बंद रखें।</p>
-      </div>
-      <div style="display: flex; justify-content: space-between; align-items: center; border-top: 2px solid #e2e8f0; padding-top: 16px; margin-top: 20px;">
-        <button style="background: #4f46e5; color: white; border: none; padding: 10px 16px; border-radius: 8px; font-weight: 800; cursor: pointer;" onclick="speakCurrentText()">🎧 ऑडियो सुनें</button>
-        <button style="background: #0f172a; color: white; border: none; padding: 10px 16px; border-radius: 8px; font-weight: 800; cursor: pointer;" onclick="window.print()">🖨️ PDF प्रिंट करें</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: ILLUSTRATED COMICS STRIP VIEWER -->
-  <div class="modal-overlay" id="comicViewerModal">
-    <div class="modal-sheet reader-sheet">
-      <button class="modal-close-icon" style="color: #0f172a;" onclick="closeModal('comicViewerModal')">&times;</button>
+  <!-- MODAL: MULTI-PAGE ILLUSTRATED COMIC / E-BOOK READER (PAGES 1 TO 7) -->
+  <div class="modal-overlay" id="multiPageReaderModal">
+    <div class="modal-sheet">
+      <button class="modal-close-icon" onclick="closeModal('multiPageReaderModal')">&times;</button>
       
-      <div style="background: #1e1b4b; color: white; padding: 16px 20px; border-radius: 12px; margin-bottom: 16px;">
-        <h3 id="comicViewTitle" style="font-size: 22px; font-family: 'Rozha One', serif; color: var(--gold-btn);">कॉमिक्स शीर्षक</h3>
-        <p id="comicViewGenre" style="font-size: 13px; color: #cbd5e1;">शैली: हास्य व सस्पेंस • भाग 1</p>
+      <div class="comic-reader-header">
+        <div>
+          <h3 id="readerBookTitle" style="font-size: 20px; font-family: 'Rozha One', serif; color: var(--gold-btn);">चतुर चंपक और भूतिया हवेली</h3>
+          <p id="readerChapterTitle" style="font-size: 13px; color: #cbd5e1;">पेज 1: हवेली की ओर पहला कदम</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span class="page-indicator-pill" id="pageNumberPill">पेज 1 / 7</span>
+          <button style="background: #f59e0b; border: none; color: #000; font-weight: 800; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 12.5px;" onclick="speakPageContent()">🎧 सुनें</button>
+        </div>
       </div>
 
-      <!-- Real Cartoon Artwork Scene -->
-      <div class="comic-art-wrap">
-        <img id="comicSceneImg" src="" alt="Cartoon Scene">
-        <div class="comic-speech" id="comicSpeechBubble">💬 "डायलॉग..."</div>
+      <!-- AI Cartoon Illustrated Scene Canvas for Active Page -->
+      <div class="comic-page-canvas">
+        <img id="comicPageImage" src="" alt="Cartoon Scene">
+        <div class="speech-dialogue-cloud" id="comicSpeechBubble">
+          💬 "डायलॉग लोड हो रहा है..."
+        </div>
       </div>
 
-      <div style="padding: 14px; background: #f8fafc; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 16px; font-size: 15px; line-height: 1.7; color: #1e293b; font-weight: 600;" id="comicSceneDesc">
-        कहानी का दृश्य...
+      <!-- Full Story Description for Active Page -->
+      <div class="comic-story-desc" id="comicStoryText">
+        कहानी का वर्णन...
       </div>
 
-      <!-- Suspense Climax Box -->
-      <div style="background: #fef2f2; border: 2px dashed #ef4444; border-radius: 12px; padding: 18px; text-align: center;">
-        <h4 style="color: #dc2626; font-size: 18px; font-weight: 900; margin-bottom: 4px;">⚡ सस्पेंस क्लाइमेक्स</h4>
-        <p id="comicSuspenseDesc" style="font-size: 14px; color: #991b1b; font-weight: 700;">क्या होगा आगे?</p>
-        <span style="font-size: 12.5px; font-weight: 800; color: #7f1d1d; display: block; margin-top: 6px;">👉 इसका बड़ा रहस्य खुलेगा "भाग 2" में!</span>
+      <!-- Suspense Box (Visible on Page 7) -->
+      <div class="suspense-final-box" id="suspenseEndingBox">
+        <h4>⚡ सस्पेंस क्लाइमेक्स: क्या होगा आगे?</h4>
+        <p id="suspenseEndingText">सस्पेंस...</p>
+        <span style="font-size: 13px; font-weight: 900; color: #7f1d1d; display: block; margin-top: 8px;">
+          👉 इस भयानक रहस्य का पर्दाफ़ाश होगा "भाग 2" में! जल्द आ रहा है।
+        </span>
+      </div>
+
+      <!-- Page Flip Controls -->
+      <div class="comic-nav-controls">
+        <button class="btn-page-nav" id="btnPrevPage" onclick="changePage(-1)">
+          <i data-lucide="chevron-left"></i> पिछला पेज
+        </button>
+        <span style="font-size: 13.5px; font-weight: 700; color: #64748b;" id="pageNavStatus">पेज 1 of 7</span>
+        <button class="btn-page-nav next" id="btnNextPage" onclick="changePage(1)">
+          अगला पेज <i data-lucide="chevron-right"></i>
+        </button>
       </div>
     </div>
   </div>
@@ -404,9 +413,74 @@
   <script>
     lucide.createIcons();
 
-    // Central Data Store (E-books + Illustrated Comics)
+    // 7 Complete Illustrated Pages for "चतुर चंपक और भूतिया हवेली (भाग 1)"
+    const champak7Pages = [
+      {
+        pageNum: 1,
+        heading: "पेज 1: आधी रात और हवेली की शर्त",
+        img: "https://image.pollinations.ai/prompt/scared-funny-cartoon-indian-man-champak-holding-torch-and-stick-walking-towards-creepy-haunted-haveli-palace-comic-art?width=750&height=400&nologo=true",
+        dialogue: "गाँव वालों ने 500 रुपये की शर्त लगाई है, वरना मैं इस भूतिया हवेली की तरफ मुँह भी न करता!",
+        story: "गाँव के बाहर बनी सौ साल पुरानी हवेली के बारे में मशहूर था कि रात 12 बजे वहाँ से किसी के पायल की छन-छन सुनाई देती है। चतुर चंपक, जो खुद को बहुत बहादुर समझता था, 500 रुपये की शर्त जीतकर हवेली के लोहे के जंग लगे फाटक पर पहुँचा। उसके हाथ में एक टॉर्च और कांपती हुई लाठी थी।"
+      },
+      {
+        pageNum: 2,
+        heading: "पेज 2: हवेली का मुख्य हॉल और अजीब गंध",
+        img: "https://image.pollinations.ai/prompt/creepy-dark-mansion-hall-spider-webs-funny-cartoon-man-looking-at-kitchen-smoke-comic-style?width=750&height=400&nologo=true",
+        dialogue: "भूतिया हवेली में लाशों की सड़ांध होनी चाहिए... पर यहाँ गरम-गरम समोसों और हींग की खुशबू कहाँ से आ रही है?!",
+        story: "चंपक ने जैसे ही हवेली का भारी दरवाज़ा खोला, जोर की चीखने जैसी चरमराहट हुई। चमगादड़ सर के ऊपर से उड़ गए। चंपक का दिल धक-धक कर रहा था। लेकिन जैसे ही उसने आगे कदम बढ़ाया, उसकी नाक में ताज़ा तले जा रहे समोसों की खुशबू आई। चंपक हैरान रह गया कि इस वीराने में हलवाई कौन है?"
+      },
+      {
+        pageNum: 3,
+        heading: "पेज 3: रसोई का हैरतअंगेज़ नज़ारा",
+        img: "https://image.pollinations.ai/prompt/funny-cartoon-skeleton-wearing-chef-hat-frying-samosas-in-large-kadhai-oil-pan-inside-spooky-kitchen-comic?width=750&height=400&nologo=true",
+        dialogue: "हे बजरंग बली! कंकाल शेफ़ की टोपी पहनकर समोसे तल रहा है?! मेरी आँखें धोखा खा रही हैं!",
+        story: "चंपक दबे पाँव हवेली की पुरानी रसोई की ओर बढ़ा। वहाँ चूल्हे पर कढ़ाई चढ़ी थी और खौलते तेल में समोसे तैर रहे थे। लेकिन समोसे तलने वाला कोई इंसान नहीं, बल्कि एक असली कंकाल था, जिसने सिर पर हलवाई की टोपी पहन रखी थी और बड़े मजे से गुनगुना रहा था!"
+      },
+      {
+        pageNum: 4,
+        heading: "पेज 4: कंकाल की मेहमान-नवाज़ी",
+        img: "https://image.pollinations.ai/prompt/cartoon-skeleton-smiling-politely-offering-hot-samosa-on-plate-to-fainting-cartoon-man-comic-art?width=750&height=400&nologo=true",
+        dialogue: "अरे मेहमान भाई, डरते क्यों हो? 50 साल बाद कोई ग्राहक आया है, गरम समोसा चखो!",
+        story: "कंकाल ने चंपक को देख लिया और गुस्से में चिल्लाने के बजाय मुस्कुराने लगा। उसने प्लेट में दो समोसे रखे और चंपक के सामने बढ़ा दिए। चंपक के हाथ-पैर सुन्न हो गए। उसने कांपते हाथों से समोसा छुआ—वह सचमुच बिल्कुल असली और खस्ता था!"
+      },
+      {
+        pageNum: 5,
+        heading: "पेज 5: चंपक की उल्टी दौड़",
+        img: "https://image.pollinations.ai/prompt/funny-cartoon-indian-man-running-for-life-dropping-torch-spooky-corridor-comic-panel?width=750&height=400&nologo=true",
+        dialogue: "समोसा जाए भाड़ में, जान बची तो लाखों पाए! भागो चंपक भागो!",
+        story: "कंकाल जैसे ही हरी चटनी लेने मुड़ा, चंपक ने अपनी जान बचाने के लिए ज़ोर की दौड़ लगा दी। उसने लाठी और टॉर्च वहीं फेंक दी और हवेली के मुख्य दरवाज़े की तरफ किसी ओलंपिक धावक की तरह भागा।"
+      },
+      {
+        pageNum: 6,
+        heading: "पेज 6: भारी दरवाज़ा और फंदे का ताला",
+        img: "https://image.pollinations.ai/prompt/cartoon-man-banging-locked-huge-iron-door-skeleton-hand-appearing-on-shoulder-dark-comic-scene?width=750&height=400&nologo=true",
+        dialogue: "धड़ाम! अरे नहीं... दरवाज़ा बाहर से किसने बंद कर दिया?! कोई मुझे बचाओ!",
+        story: "जैसे ही चंपक दरवाज़े तक पहुँचा, एक तेज़ ठंडी हवा के झोंके के साथ भारी दरवाज़ा अपने-आप बंद हो गया और उस पर बड़ा सा ताला लटक गया। चंपक ने दरवाज़ा पीटना शुरू किया, तभी एक ठंडी हड्डी वाली उँगली ने उसके कंधे को पीछे से थपथपाया!"
+      },
+      {
+        pageNum: 7,
+        heading: "पेज 7 (क्लाइमेक्स): अंतिम चेतावनी और सस्पेंस",
+        img: "https://image.pollinations.ai/prompt/creepy-smiling-skeleton-holding-glowing-ancient-key-whispering-to-shocked-cartoon-man-comic-cliffhanger?width=750&height=400&nologo=true",
+        dialogue: "चटनी तो लेते जाओ चंपक भाई... और इस दरवाज़े की चाबी सिर्फ तीसरे समोसे के अंदर है!",
+        story: "चंपक ने मुड़कर देखा तो कंकाल उसके बिल्कुल करीब खड़ा था। उसकी खोपड़ी की आँखों में लाल रोशनी चमक रही थी। कंकाल ने मुस्कुराते हुए कहा—'इस हवेली का नियम है... जो आता है, वह समोसे की पूरी प्लेट खत्म करके ही जाता है। और ताले की चाबी कढ़ाई में उबल रहे तीसरे समोसे के अंदर जमी हुई है!'"
+      }
+    ];
+
+    // Central Store Items
     let storeItems = [
-      // 4 Core E-Books with Cover Images
+      {
+        id: "champak_multi",
+        type: "comic_multi",
+        category: "comics",
+        title: "चतुर चंपक और भूतिया हवेली (भाग 1)",
+        author: "अक्षर कॉमिक्स",
+        price: "मुफ़्त",
+        pagesCount: 7,
+        img: "https://image.pollinations.ai/prompt/scared-funny-cartoon-indian-man-champak-holding-torch-walking-towards-creepy-haunted-haveli-palace-comic-cover?width=500&height=350&nologo=true",
+        badge: "7-पेज सचित्र कॉमिक",
+        pages: champak7Pages,
+        suspense: "कंकाल ने चंपक के हाथ में चिमटा थमा दिया और बोला—'हाथ डालो उबलते तेल में और निकालो अपनी आज़ादी की चाबी!' क्या चंपक चाबी निकाल पाएगा या खुद हवेली का अगला भूत बन जाएगा?"
+      },
       {
         id: "eb1", type: "ebook", category: "selfhelp",
         title: "छोटी आदतें, बड़ा बदलाव", author: "अक्षर संपादकीय", price: "मुफ़्त",
@@ -414,7 +488,7 @@
         badge: "★ बेस्टसेलर"
       },
       {
-        id: "eb2", type: "career", category: "career",
+        id: "eb2", type: "ebook", category: "career",
         title: "पहली नौकरी की तैयारी", author: "करियर डेस्क", price: "मुफ़्त",
         img: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=500&q=80",
         badge: "करियर गाइड"
@@ -424,53 +498,43 @@
         title: "पैसों से दोस्ती करें", author: "फाइनेंस टीम", price: "मुफ़्त",
         img: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=500&q=80",
         badge: "फाइनेंस 101"
-      },
-      {
-        id: "eb4", type: "ebook", category: "tech",
-        title: "डिजिटल दुनिया 2026", author: "टेक टीम", price: "मुफ़्त",
-        img: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=500&q=80",
-        badge: "AI व तकनीक"
       }
     ];
 
-    // 20 Comics with Real AI Cartoon Images
-    const comicConfigs = [
-      { t: "चतुर चंपक और भूतिया हवेली", prompt: "spooky haunted mansion funny skeleton eating samosa cartoon comic style" },
-      { t: "प्रोफ़ेसर गोलमाल और टाइम मशीन", prompt: "funny crazy scientist with glowing time machine gadget cartoon comic art" },
-      { t: "सुपर बंटी: रिमोट का रहस्य", prompt: "funny young boy holding magical glowing tv remote control cartoon comic" },
-      { t: "इंस्पेक्टर ढोलकिया और रसगुल्ला", prompt: "funny fat indian police inspector magnifying glass sweets shop cartoon comic" },
-      { t: "एलियन आया छत पर", prompt: "cute friendly green alien landing on indian terrace with flying saucer cartoon" },
-      { t: "हॉस्टल रूम 404 का साया", prompt: "funny hostel students seeing ghost solving math equations on chalkboard cartoon" },
-      { t: "जादुई समोसा और चिंटू", prompt: "glowing magical samosa cooking in big pot funny indian vendor comic" },
-      { t: "भूतिया शादी और पिंटू", prompt: "funny photographer taking photos of flying friendly ghosts in royal palace cartoon" },
-      { t: "स्मार्टफोन का जिन्न", prompt: "blue smoke genie coming out of glowing smartphone cartoon comic" },
-      { t: "ट्रेन 007: बिना ड्राइवर", prompt: "funny speeding cartoon train night tracks robot driver comic art" },
-      { t: "बिल्ली मौसी और जासूसी चूहा", prompt: "detective smart mouse with magnifying glass outsmarting fat cat cartoon" },
-      { t: "किराएदार वैम्पायर", prompt: "funny friendly vampire wearing sunglasses drinking tomato soup cartoon comic" },
-      { t: "परीक्षा का उड़ने वाला पेन", prompt: "magical glowing floating pen writing examination answer paper funny comic" },
-      { t: "मम्मी का जादुई बेलन", prompt: "funny angry indian mother holding glowing rolling pin chasing cartoon villains" },
-      { t: "जुड़वाँ चोर और असली पुलिस", prompt: "funny twin thieves wearing stripes confusing courtroom police cartoon" },
-      { t: "रोबोट नौकर का विद्रोह", prompt: "funny domestic helper robot made of kitchen spoons and pots cartoon comic" },
-      { t: "भूतों का क्रिकेट मैच", prompt: "friendly white ghost team playing cricket under moonlight graveyard cartoon" },
-      { t: "गूगल मैप्स का भटकाव", prompt: "four friends in funny vintage car lost in mysterious glowing swamp cartoon" },
-      { t: "अदृश्य कोट का हंगामा", prompt: "funny invisible boy where only boots and floating hat visible cartoon comic" },
-      { t: "सपनों का रहस्यमयी चोर", prompt: "funny greedy merchant with giant vacuum pipe stealing dreams cartoon comic" }
+    // Add remaining 19 comics with 7-page structure support
+    const otherTitles = [
+      "प्रोफ़ेसर गोलमाल और टाइम मशीन", "सुपर बंटी: रिमोट का रहस्य", "इंस्पेक्टर ढोलकिया और रसगुल्ला",
+      "एलियन आया छत पर", "हॉस्टल रूम 404 का साया", "जादुई समोसा और चिंटू", "भूतिया शादी और पिंटू",
+      "स्मार्टफोन का जिन्न", "ट्रेन 007: बिना ड्राइवर", "बिल्ली मौसी और जासूसी चूहा", "किराएदार वैम्पायर",
+      "परीक्षा का उड़ने वाला पेन", "मम्मी का जादुई बेलन", "जुड़वाँ चोर और असली पुलिस", "रोबोट नौकर का विद्रोह",
+      "भूतों का क्रिकेट मैच", "गूगल मैप्स का भटकाव", "अदृश्य कोट का हंगामा", "सपनों का रहस्यमयी चोर"
     ];
 
-    comicConfigs.forEach((c, i) => {
-      const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(c.prompt)}?width=500&height=350&nologo=true`;
+    otherTitles.forEach((t, idx) => {
+      // Build 7 dummy pages dynamically for each title
+      const pgs = [];
+      for(let p=1; p<=7; p++) {
+        pgs.push({
+          pageNum: p,
+          heading: `पेज ${p}: ${t} का दृश्य`,
+          img: `https://image.pollinations.ai/prompt/${encodeURIComponent(t + " scene " + p + " funny cartoon comic story visual")}?width=750&height=400&nologo=true`,
+          dialogue: p === 7 ? "अब खेल खत्म, सच सामने आ चुका है!" : `दृश्य ${p}: अरे यह क्या हो रहा है?!`,
+          story: `${t} के इस भाग में रोमांच और हास्य अपने चरम पर पहुँचता है। किरदार कदम-दर-कदम रहस्य की गहराई में उतरते हैं।`
+        });
+      }
+
       storeItems.push({
-        id: "cm" + (i + 1),
-        type: "comic",
+        id: "comic_" + (idx + 2),
+        type: "comic_multi",
         category: "comics",
-        title: `${c.t} (भाग 1)`,
+        title: `${t} (भाग 1)`,
         author: "अक्षर कॉमिक्स",
         price: "मुफ़्त",
-        img: imgUrl,
-        badge: "भाग 1 • कॉमिक्स",
-        dialogue: "अरे बाप रे! यह क्या रहस्य है?!",
-        scene: `${c.t} में हास्य और रोमांचक घटनाओं की शुरुआत होती है। किरदार एक विचित्र और रहस्यमयी स्थिति में फंस जाते हैं!`,
-        suspense: "अचानक एक रहस्यमयी आवाज़ गूँजती है और दरवाज़ा लॉक हो जाता है! क्या होगा आगे?"
+        pagesCount: 7,
+        img: `https://image.pollinations.ai/prompt/${encodeURIComponent(t + " colorful cartoon comic cover art")}?width=500&height=350&nologo=true`,
+        badge: "7-पेज सचित्र कॉमिक",
+        pages: pgs,
+        suspense: `क्लाइमेक्स पर एक बड़ा धमाका होता है और रहस्य का ताला लग जाता है! क्या होगा आगे? जानिए भाग 2 में!`
       });
     });
 
@@ -489,7 +553,7 @@
         const card = document.createElement('div');
         card.className = 'item-card';
         card.innerHTML = `
-          <div class="item-cover-3d" onclick="openItem('${item.id}')">
+          <div class="item-cover-3d" onclick="openMultiPageComic('${item.id}')">
             <span class="tag">${item.badge}</span>
             <img src="${item.img}" alt="${item.title}" loading="lazy">
             <div class="cover-overlay">
@@ -499,9 +563,9 @@
           <div class="item-info">
             <h5>${item.title}</h5>
             <div class="author">${item.author}</div>
-            <div class="price-tag">${item.price}</div>
-            <button class="btn-action" onclick="openItem('${item.id}')">
-              <i data-lucide="book-open"></i> ${item.type === 'comic' ? 'कॉमिक्स पढ़ें' : 'किताब पढ़ें'}
+            <div class="price-tag">${item.price} • 7 पेज सचित्र</div>
+            <button class="btn-action" onclick="openMultiPageComic('${item.id}')">
+              <i data-lucide="book-open"></i> पूरी कॉमिक्स पढ़ें (7 पेज)
             </button>
           </div>
         `;
@@ -516,10 +580,9 @@
         document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
       }
-      
       const titles = {
         all: "सभी पुस्तकें एवं कॉमिक्स",
-        comics: "🎨 सभी 20 कॉमिक्स (भाग 1 - सचित्र)",
+        comics: "🎨 सभी 20 कॉमिक्स (7-पेज सचित्र)",
         selfhelp: "🧘 आत्मविकास ई-बुक्स",
         career: "💼 करियर व नौकरी गाइड",
         finance: "💰 पैसे और बचत",
@@ -529,29 +592,77 @@
       renderStore(cat);
     }
 
-    let speakingText = "";
+    // Multi-Page Reader State
+    let activeBook = null;
+    let currentPageIndex = 0;
 
-    // Open Unified Reader / Viewer
-    function openItem(id) {
-      const item = storeItems.find(i => i.id === id);
-      if(!item) return;
+    function openMultiPageComic(id) {
+      activeBook = storeItems.find(i => i.id === id);
+      if(!activeBook) return;
 
-      if(item.type === 'ebook') {
-        document.getElementById('readerBookTitle').innerText = item.title;
-        speakingText = item.title + "। संपूर्ण ई-बुक। अध्याय एक: लक्ष्य नहीं, अगला छोटा कदम चुनें।";
-        openModal('eBookReaderModal');
+      currentPageIndex = 0;
+      document.getElementById('readerBookTitle').innerText = activeBook.title;
+      renderCurrentPage();
+      openModal('multiPageReaderModal');
+    }
+
+    function renderCurrentPage() {
+      if(!activeBook || !activeBook.pages) return;
+      const p = activeBook.pages[currentPageIndex];
+      const totalPages = activeBook.pages.length;
+
+      document.getElementById('readerChapterTitle').innerText = p.heading;
+      document.getElementById('pageNumberPill').innerText = `पेज ${currentPageIndex + 1} / ${totalPages}`;
+      document.getElementById('pageNavStatus').innerText = `पेज ${currentPageIndex + 1} of ${totalPages}`;
+      
+      document.getElementById('comicPageImage').src = p.img;
+      document.getElementById('comicSpeechBubble').innerText = `💬 "${p.dialogue}"`;
+      document.getElementById('comicStoryText').innerText = p.story;
+
+      // Suspense box shown only on last page
+      const suspenseBox = document.getElementById('suspenseEndingBox');
+      if(currentPageIndex === totalPages - 1) {
+        suspenseBox.style.display = 'block';
+        document.getElementById('suspenseEndingText').innerText = activeBook.suspense;
       } else {
-        document.getElementById('comicViewTitle').innerText = item.title;
-        document.getElementById('comicSceneImg').src = item.img;
-        document.getElementById('comicSpeechBubble').innerText = `💬 "${item.dialogue}"`;
-        document.getElementById('comicSceneDesc').innerText = item.scene;
-        document.getElementById('comicSuspenseDesc').innerText = item.suspense;
-        speakingText = `${item.title}। ${item.scene} संवाद: ${item.dialogue}। सस्पेंस: ${item.suspense}`;
-        openModal('comicViewerModal');
+        suspenseBox.style.display = 'none';
+      }
+
+      // Prev / Next button states
+      document.getElementById('btnPrevPage').disabled = (currentPageIndex === 0);
+      const nextBtn = document.getElementById('btnNextPage');
+      if(currentPageIndex === totalPages - 1) {
+        nextBtn.innerHTML = `समाप्त (भाग 2 जल्द)`;
+        nextBtn.disabled = true;
+      } else {
+        nextBtn.innerHTML = `अगला पेज <i data-lucide="chevron-right"></i>`;
+        nextBtn.disabled = false;
+      }
+      lucide.createIcons();
+    }
+
+    function changePage(delta) {
+      if(!activeBook || !activeBook.pages) return;
+      const newIdx = currentPageIndex + delta;
+      if(newIdx >= 0 && newIdx < activeBook.pages.length) {
+        currentPageIndex = newIdx;
+        renderCurrentPage();
       }
     }
 
-    // Modals Controls
+    function speakPageContent() {
+      if(!activeBook || !activeBook.pages) return;
+      const p = activeBook.pages[currentPageIndex];
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const text = `${p.heading}। संवाद: ${p.dialogue}। कहानी: ${p.story}`;
+        const ut = new SpeechSynthesisUtterance(text);
+        ut.lang = 'hi-IN';
+        window.speechSynthesis.speak(ut);
+      }
+    }
+
+    // Modal Control Helpers
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { 
       document.getElementById(id).style.display = 'none';
@@ -568,55 +679,33 @@
       }
     }
 
-    function togglePriceInput() {
-      const pricing = document.getElementById('newBookPricing').value;
-      document.getElementById('priceWrap').style.display = (pricing === 'paid') ? 'block' : 'none';
-    }
-
     function saveNewBookFromAdmin() {
       const title = document.getElementById('newBookTitle').value.trim();
       const author = document.getElementById('newBookAuthor').value.trim();
       const category = document.getElementById('newBookCategory').value;
-      const pricing = document.getElementById('newBookPricing').value;
-      const priceVal = document.getElementById('newBookPrice').value;
-      const customImg = document.getElementById('newBookImage').value.trim();
+      const price = document.getElementById('newBookPrice').value.trim();
 
       if(!title) {
-        alert("कृपया किताब का शीर्षक लिखें!");
+        alert("शीर्षक अनिवार्य है!");
         return;
       }
 
-      const isPaid = (pricing === 'paid' && priceVal);
-      const displayPrice = isPaid ? `₹${priceVal}` : "मुफ़्त";
-      const fallbackImg = `https://image.pollinations.ai/prompt/${encodeURIComponent(title + " cartoon book cover")}?width=500&height=350&nologo=true`;
-
       storeItems.unshift({
         id: "admin_" + Date.now(),
-        type: (category === 'comics') ? 'comic' : 'ebook',
+        type: "comic_multi",
         category: category,
         title: title,
         author: author || "अक्षर एडमिन",
-        price: displayPrice,
-        img: customImg || fallbackImg,
-        badge: isPaid ? `सशुल्क (${displayPrice})` : "मुफ़्त",
-        dialogue: "नई प्रस्तुति!",
-        scene: `${title} का पहला भाग।`,
+        price: price || "मुफ़्त",
+        badge: "नई प्रस्तुति",
+        img: `https://image.pollinations.ai/prompt/${encodeURIComponent(title + " cover art")}?width=500&height=350&nologo=true`,
+        pages: champak7Pages,
         suspense: "रहस्य जल्द ही खुलेगा..."
       });
 
-      alert(`"${title}" सफलतापूर्वक प्रकाशित हो गई!`);
+      alert(`"${title}" प्रकाशित हो गई!`);
       closeModal('adminPanelModal');
       renderStore('all');
-    }
-
-    function speakCurrentText() {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const ut = new SpeechSynthesisUtterance(speakingText);
-        ut.lang = 'hi-IN';
-        window.speechSynthesis.speak(ut);
-        alert('ऑडियो शुरू हो गया है!');
-      }
     }
 
     // Initial Load
