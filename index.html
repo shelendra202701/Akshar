@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>अक्षर (Akshar) - 7-पेज सचित्र कॉमिक्स एवं ऑटो-टर्न सिनेमैटिक ऑडियो</title>
+  <title>अक्षर (Akshar) - लाइव डायलॉग ड्रामा एवं 7-पेज सचित्र कॉमिक्स</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+Devanagari:wght@500;600;700;800&family=Rozha+One&display=swap" rel="stylesheet">
@@ -174,11 +174,29 @@
     .comic-page-canvas img {
       width: 100%; height: 100%; object-fit: cover; display: block;
     }
+    
+    /* Live Multi-Character Dialogue Box */
+    .live-conversation-container {
+      position: absolute; bottom: 12px; left: 14px; right: 14px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
     .speech-dialogue-cloud {
-      position: absolute; bottom: 16px; left: 16px; right: 16px;
-      background: rgba(255, 255, 255, 0.95); border: 2px solid #000; border-radius: 14px;
-      padding: 10px 16px; font-size: 14.5px; font-weight: 800; color: #0f172a;
-      box-shadow: 3px 3px 0 #000;
+      background: rgba(255, 255, 255, 0.96); border: 2px solid #000; border-radius: 12px;
+      padding: 8px 14px; font-size: 13.5px; font-weight: 800; color: #0f172a;
+      box-shadow: 3px 3px 0 #000; display: flex; align-items: center; gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .speech-dialogue-cloud.speaker-female {
+      border-color: #ec4899; background: #fff1f2; align-self: flex-start;
+    }
+    .speech-dialogue-cloud.speaker-male {
+      border-color: #3b82f6; background: #eff6ff; align-self: flex-start;
+    }
+    .speech-dialogue-cloud.speaker-ghost {
+      border-color: #ef4444; background: #fef2f2; align-self: flex-end; color: #991b1b;
+    }
+    .speech-dialogue-cloud.active-speaking {
+      border-width: 3px; transform: scale(1.02); box-shadow: 0 0 12px rgba(245, 158, 11, 0.8);
     }
 
     .comic-story-desc {
@@ -231,7 +249,7 @@
       .app-bottom-bar { display: flex; }
       .search-box-wrap, .top-bar { display: none; }
       .hero-strip h2 { font-size: 24px; }
-      .comic-page-canvas { height: 230px; }
+      .comic-page-canvas { height: 260px; }
     }
   </style>
 </head>
@@ -239,7 +257,7 @@
 
   <!-- Top Announcement Bar -->
   <div class="top-bar">
-    <span>🎧 ऑटो-पेज फ्लिप + सिनेमैटिक ऑडियो एवं बैकग्राउंड म्यूजिक लाइव!</span>
+    <span>🎭 लाइव डायलॉग (मेल/फीमेल बातचीत) + साउंड इफ़ेक्ट्स व ऑटो-टर्न लाइव!</span>
     <span>अक्षर डिजिटल स्टोर 2026</span>
   </div>
 
@@ -269,7 +287,7 @@
     <div class="sub-bar">
       <div class="sub-bar-inner">
         <button class="cat-btn active" onclick="filterCategory('all', this)">सभी संग्रह</button>
-        <button class="cat-btn" onclick="filterCategory('comics', this)">🎨 7-पेज कॉमिक्स (ऑटो-टर्न)</button>
+        <button class="cat-btn" onclick="filterCategory('comics', this)">🎨 7-पेज कॉमिक्स (लाइव बातचीत)</button>
         <button class="cat-btn" onclick="filterCategory('selfhelp', this)">🧘 आत्मविकास ई-बुक्स</button>
         <button class="cat-btn" onclick="filterCategory('career', this)">💼 करियर व नौकरी</button>
         <button class="cat-btn" onclick="filterCategory('finance', this)">💰 पैसे और बचत</button>
@@ -284,7 +302,7 @@
     <!-- Hero Banner -->
     <div class="hero-strip">
       <h2>पढ़िए, सीखिए, <br><span>अपने सपनों को उड़ान दीजिए</span></h2>
-      <p>हिंदी में 7-पृष्ठीय सचित्र कॉमिक्स, ऑटोमैटिक पेज फ्लिप (पन्ने पलटना), अडैप्टिव बैकग्राउंड म्यूजिक और ई-पुस्तकों का आधुनिक संसार।</p>
+      <p>हिंदी में 7-पृष्ठीय सचित्र कॉमिक्स, किरदारों की लाइव बातचीत (मेल-फीमेल वॉयस ड्रामा), साउंड इफ़ेक्ट्स और ई-पुस्तकों का आधुनिक संसार।</p>
     </div>
 
     <!-- Section Heading -->
@@ -363,7 +381,7 @@
     </div>
   </div>
 
-  <!-- MODAL: MULTI-PAGE ILLUSTRATED COMIC / E-BOOK READER WITH AUTO BGM & AUTO-FLIP -->
+  <!-- MODAL: MULTI-PAGE ILLUSTRATED COMIC WITH LIVE CHARACTER VOICES & SFX -->
   <div class="modal-overlay" id="multiPageReaderModal">
     <div class="modal-sheet">
       <button class="modal-close-icon" onclick="closeModal('multiPageReaderModal')">&times;</button>
@@ -377,7 +395,7 @@
           <span class="page-indicator-pill" id="pageNumberPill">पेज 1 / 7</span>
           <span class="audio-badge" id="audioMoodBadge"><i data-lucide="music"></i> BGM: फनी कॉमेडी</span>
           <button id="btnPlayAudio" style="background: #f59e0b; border: none; color: #000; font-weight: 800; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 13px;" onclick="toggleAudioWithBGM()">
-            🎧 सुनें (ऑटो-टर्न)
+            🎧 सुनें (लाइव डायलॉग)
           </button>
         </div>
       </div>
@@ -385,8 +403,9 @@
       <!-- AI Cartoon Illustrated Scene Canvas -->
       <div class="comic-page-canvas">
         <img id="comicPageImage" src="" alt="Cartoon Scene">
-        <div class="speech-dialogue-cloud" id="comicSpeechBubble">
-          💬 "डायलॉग लोड हो रहा है..."
+        <!-- Live Multi-Character Dialogue Bubbles -->
+        <div class="live-conversation-container" id="dialoguesContainer">
+          <!-- Injected dynamically -->
         </div>
       </div>
 
@@ -420,7 +439,7 @@
   <script>
     lucide.createIcons();
 
-    // Web Audio API Adaptive BGM Generator (Funny Cartoon & Spooky Suspense)
+    // Web Audio Synthesizer: Sound Effects (SFX) & Ambient BGM
     let audioCtx = null;
     let bgmInterval = null;
     let isAudioPlaying = false;
@@ -433,6 +452,66 @@
       if (audioCtx.state === 'suspended') {
         audioCtx.resume();
       }
+    }
+
+    // SFX: Door Slam / Heavy Thud (धड़ाम इफ़ेक्ट)
+    function playDoorSlamSFX() {
+      initAudioContext();
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(140, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.6);
+        
+        gain.gain.setValueAtTime(0.35, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
+        
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.6);
+      } catch(e) {}
+    }
+
+    // SFX: Spooky Ghost Wind Whistle
+    function playSpookyWindSFX() {
+      initAudioContext();
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(350, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(80, audioCtx.currentTime + 1.2);
+        
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+        
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 1.2);
+      } catch(e) {}
+    }
+
+    // SFX: Magic Comic Chime
+    function playComicChimeSFX() {
+      initAudioContext();
+      try {
+        const notes = [523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, idx) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime + idx * 0.08);
+          gain.gain.setValueAtTime(0.06, audioCtx.currentTime + idx * 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + idx * 0.08 + 0.3);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(audioCtx.currentTime + idx * 0.08);
+          osc.stop(audioCtx.currentTime + idx * 0.08 + 0.3);
+        });
+      } catch(e) {}
     }
 
     function startAdaptiveBGM(mood) {
@@ -449,7 +528,7 @@
           osc.type = 'triangle';
           osc.frequency.setValueAtTime(notes[step % notes.length], audioCtx.currentTime);
           
-          gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
           gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
           
           osc.connect(gain);
@@ -458,7 +537,7 @@
           osc.start();
           osc.stop(audioCtx.currentTime + 0.25);
           step++;
-        }, 320);
+        }, 340);
       } else {
         const droneNotes = [110.00, 116.54, 130.81, 123.47];
         let step = 0;
@@ -469,7 +548,7 @@
           osc.type = 'sawtooth';
           osc.frequency.setValueAtTime(droneNotes[step % droneNotes.length], audioCtx.currentTime);
 
-          gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.035, audioCtx.currentTime);
           gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
 
           osc.connect(gain);
@@ -489,63 +568,89 @@
       }
     }
 
-    // 7 Complete Illustrated Pages for "चतुर चंपक और भूतिया हवेली (भाग 1)" with Mood Tags
+    // 7 Complete Pages for Champak with Multi-Character Conversations
     const champak7Pages = [
       {
         pageNum: 1,
         heading: "पेज 1: आधी रात और हवेली की शर्त",
         mood: "funny",
+        sfx: "chime",
         img: "https://image.pollinations.ai/prompt/scared-funny-cartoon-indian-man-champak-holding-torch-and-stick-walking-towards-creepy-haunted-haveli-palace-comic-art?width=750&height=400&nologo=true",
-        dialogue: "गाँव वालों ने 500 रुपये की शर्त लगाई है, वरना मैं इस भूतिया हवेली की तरफ मुँह भी न करता!",
-        story: "गाँव के बाहर बनी सौ साल पुरानी हवेली के बारे में मशहूर था कि रात 12 बजे वहाँ से किसी के पायल की छन-छन सुनाई देती है। चतुर चंपक, जो खुद को बहुत बहादुर समझता था, 500 रुपये की शर्त जीतकर हवेली के लोहे के जंग लगे फाटक पर पहुँचा। उसके हाथ में एक टॉर्च और कांपती हुई लाठी थी।"
+        story: "गाँव के बाहर बनी सौ साल पुरानी हवेली के फाटक पर चंपक रात 12 बजे पहुँचा। गाँव की चमेली चाची ने शर्त लगाई थी।",
+        dialogues: [
+          { speaker: "female", name: "चाची", text: "चंपक! अगर तू अंदर गया तो 500 रुपये जीत जाएगा, नहीं तो कायर कहलाएगा!" },
+          { speaker: "male", name: "चंपक", text: "अरे चाची, 500 रुपये की खातिर मैं यमराज के घर भी चाय पीकर आ सकता हूँ!" }
+        ]
       },
       {
         pageNum: 2,
         heading: "पेज 2: हवेली का मुख्य हॉल और अजीब गंध",
         mood: "funny",
+        sfx: "chime",
         img: "https://image.pollinations.ai/prompt/creepy-dark-mansion-hall-spider-webs-funny-cartoon-man-looking-at-kitchen-smoke-comic-style?width=750&height=400&nologo=true",
-        dialogue: "भूतिया हवेली में लाशों की सड़ांध होनी चाहिए... पर यहाँ गरम-गरम समोसों और हींग की खुशबू कहाँ से आ रही है?!",
-        story: "चंपक ने जैसे ही हवेली का भारी दरवाज़ा खोला, जोर की चीखने जैसी चरमराहट हुई। चमगादड़ सर के ऊपर से उड़ गए। चंपक का दिल धक-धक कर रहा था। लेकिन जैसे ही उसने आगे कदम बढ़ाया, उसकी नाक में ताज़ा तले जा रहे समोसों की खुशबू आई। चंपक हैरान रह गया कि इस वीराने में हलवाई कौन है?"
+        story: "चंपक ने जैसे ही हवेली का भारी दरवाज़ा खोला, जोर की चरमराहट हुई। अंदर समोसों और हींग की खुशबू तैर रही थी।",
+        dialogues: [
+          { speaker: "male", name: "चंपक", text: "भूतिया हवेली में लाशों की सड़ांध होनी चाहिए... पर यहाँ गरम समोसे कौन तल रहा है?!" }
+        ]
       },
       {
         pageNum: 3,
         heading: "पेज 3: रसोई का हैरतअंगेज़ नज़ारा",
         mood: "funny",
+        sfx: "chime",
         img: "https://image.pollinations.ai/prompt/funny-cartoon-skeleton-wearing-chef-hat-frying-samosas-in-large-kadhai-oil-pan-inside-spooky-kitchen-comic?width=750&height=400&nologo=true",
-        dialogue: "हे बजरंग बली! कंकाल शेफ़ की टोपी पहनकर समोसे तल रहा है?! मेरी आँखें धोखा खा रही हैं!",
-        story: "चंपक दबे पाँव हवेली की पुरानी रसोई की ओर बढ़ा। वहाँ चूल्हे पर कढ़ाई चढ़ी थी और खौलते तेल में समोसे तैर रहे थे। लेकिन समोसे तलने वाला कोई इंसान नहीं, बल्कि एक असली कंकाल था, जिसने सिर पर हलवाई की टोपी पहन रखी थी और बड़े मजे से गुनगुना रहा था!"
+        story: "रसोई में चूल्हे पर कढ़ाई चढ़ी थी और हलवाई की टोपी पहने एक असली कंकाल बड़े मजे से समोसे तल रहा था।",
+        dialogues: [
+          { speaker: "male", name: "चंपक", text: "हे बजरंग बली! कंकाल शेफ़ बन गया?! मेरी आँखें धोखा खा रही हैं!" },
+          { speaker: "ghost", name: "कंकाल", text: "अरे चंपक भाई, आँखें नहीं... तुम्हारी किस्मत धोखा खा रही है!" }
+        ]
       },
       {
         pageNum: 4,
         heading: "पेज 4: कंकाल की मेहमान-नवाज़ी",
         mood: "funny",
+        sfx: "spooky",
         img: "https://image.pollinations.ai/prompt/cartoon-skeleton-smiling-politely-offering-hot-samosa-on-plate-to-fainting-cartoon-man-comic-art?width=750&height=400&nologo=true",
-        dialogue: "अरे मेहमान भाई, डरते क्यों हो? 50 साल बाद कोई ग्राहक आया है, गरम समोसा चखो!",
-        story: "कंकाल ने चंपक को देख लिया और गुस्से में चिल्लाने के बजाय मुस्कुराने लगा। उसने प्लेट में दो समोसे रखे और चंपक के सामने बढ़ा दिए। चंपक के हाथ-पैर सुन्न हो गए। उसने कांपते हाथों से समोसा छुआ—वह सचमुच बिल्कुल असली और खस्ता था!"
+        story: "कंकाल ने चंपक को प्लेट में दो समोसे पेश किए। चंपक के हाथ-पैर कांप रहे थे।",
+        dialogues: [
+          { speaker: "ghost", name: "कंकाल", text: "डरते क्यों हो? 50 साल बाद कोई ग्राहक आया है, गरम समोसा चखो!" },
+          { speaker: "male", name: "चंपक", text: "म... मुझे भूख नहीं है महाराज, मैं तो सिर्फ रास्ता भटक गया था!" }
+        ]
       },
       {
         pageNum: 5,
         heading: "पेज 5: चंपक की उल्टी दौड़",
         mood: "funny",
+        sfx: "slam",
         img: "https://image.pollinations.ai/prompt/funny-cartoon-indian-man-running-for-life-dropping-torch-spooky-corridor-comic-panel?width=750&height=400&nologo=true",
-        dialogue: "समोसा जाए भाड़ में, जान बची तो लाखों पाए! भागो चंपक भागो!",
-        story: "कंकाल जैसे ही हरी चटनी लेने मुड़ा, चंपक ने अपनी जान बचाने के लिए ज़ोर की दौड़ लगा दी। उसने लाठी और टॉर्च वहीं फेंक दी और हवेली के मुख्य दरवाज़े की तरफ किसी ओलंपिक धावक की तरह भागा।"
+        story: "जैसे ही कंकाल हरी चटनी लेने मुड़ा, चंपक ने लाठी-टॉर्च फेंककर मुख्य दरवाज़े की तरफ दौड़ लगा दी।",
+        dialogues: [
+          { speaker: "male", name: "चंपक", text: "समोसा जाए भाड़ में, जान बची तो लाखों पाए! भागो चंपक भागो!" }
+        ]
       },
       {
         pageNum: 6,
         heading: "पेज 6: भारी दरवाज़ा और फंदे का ताला",
         mood: "suspense",
+        sfx: "slam",
         img: "https://image.pollinations.ai/prompt/cartoon-man-banging-locked-huge-iron-door-skeleton-hand-appearing-on-shoulder-dark-comic-scene?width=750&height=400&nologo=true",
-        dialogue: "धड़ाम! अरे नहीं... दरवाज़ा बाहर से किसने बंद कर दिया?! कोई मुझे बचाओ!",
-        story: "जैसे ही चंपक दरवाज़े तक पहुँचा, एक तेज़ ठंडी हवा के झोंके के साथ भारी दरवाज़ा अपने-आप बंद हो गया और उस पर बड़ा सा ताला लटक गया। चंपक ने दरवाज़ा पीटना शुरू किया, तभी एक ठंडी हड्डी वाली उँगली ने उसके कंधे को पीछे से थपथपाया!"
+        story: "दरवाज़े पर पहुँचते ही धड़ाम से फाटक बंद हुआ और बड़ा सा ताला लटक गया। तभी कंधे पर ठंडी हड्डी वाली उँगली पड़ी।",
+        dialogues: [
+          { speaker: "male", name: "चंपक", text: "धड़ाम! अरे नहीं... दरवाज़ा बाहर से किसने बंद कर दिया?! बचाओ!" },
+          { speaker: "ghost", name: "कंकाल", text: "इतनी जल्दी क्या है चंपक? मेहमान बिना खाए नहीं जाते!" }
+        ]
       },
       {
         pageNum: 7,
         heading: "पेज 7 (क्लाइमेक्स): अंतिम चेतावनी और सस्पेंस",
         mood: "suspense",
+        sfx: "spooky",
         img: "https://image.pollinations.ai/prompt/creepy-smiling-skeleton-holding-glowing-ancient-key-whispering-to-shocked-cartoon-man-comic-cliffhanger?width=750&height=400&nologo=true",
-        dialogue: "चटनी तो लेते जाओ चंपक भाई... और इस दरवाज़े की चाबी सिर्फ तीसरे समोसे के अंदर है!",
-        story: "चंपक ने मुड़कर देखा तो कंकाल उसके बिल्कुल करीब खड़ा था। उसकी खोपड़ी की आँखों में लाल रोशनी चमक रही थी। कंकाल ने मुस्कुराते हुए कहा—'इस हवेली का नियम है... जो आता है, वह समोसे की पूरी प्लेट खत्म करके ही जाता है। और ताले की चाबी कढ़ाई में उबल रहे तीसरे समोसे के अंदर जमी हुई है!'"
+        story: "कंकाल की आँखों में लाल रोशनी चमक रही थी। उसने चंपक के हाथ में चिमटा थमा दिया।",
+        dialogues: [
+          { speaker: "ghost", name: "कंकाल", text: "चटनी तो लेते जाओ चंपक... और इस दरवाज़े की चाबी सिर्फ तीसरे समोसे के अंदर उबल रही है!" },
+          { speaker: "male", name: "चंपक", text: "उबलते तेल में हाथ?! नहीं... मैं नहीं करूँगा!" }
+        ]
       }
     ];
 
@@ -560,9 +665,9 @@
         price: "मुफ़्त",
         pagesCount: 7,
         img: "https://image.pollinations.ai/prompt/scared-funny-cartoon-indian-man-champak-holding-torch-walking-towards-creepy-haunted-haveli-palace-comic-cover?width=500&height=350&nologo=true",
-        badge: "7-पेज सचित्र कॉमिक",
+        badge: "लाइव डायलॉग ड्रामा",
         pages: champak7Pages,
-        suspense: "कंकाल ने चंपक के हाथ में चिमटा थमा दिया और बोला—'हाथ डालो उबलते तेल में और निकालो अपनी आज़ादी की चाबी!' क्या चंपक चाबी निकाल पाएगा या खुद हवेली का अगला भूत बन जाएगा?"
+        suspense: "कंकाल ने कहा—'हाथ डालो उबलते तेल में और निकालो अपनी आज़ादी की चाबी!' क्या चंपक चाबी निकाल पाएगा या खुद हवेली का अगला भूत बन जाएगा?"
       },
       {
         id: "eb1", type: "ebook", category: "selfhelp",
@@ -584,7 +689,7 @@
       }
     ];
 
-    // Other 19 comics with 7 pages & mood tags
+    // Other 19 comics with multi-character dialogues support
     const otherTitles = [
       "प्रोफ़ेसर गोलमाल और टाइम मशीन", "सुपर बंटी: रिमोट का रहस्य", "इंस्पेक्टर ढोलकिया और रसगुल्ला",
       "एलियन आया छत पर", "हॉस्टल रूम 404 का साया", "जादुई समोसा और चिंटू", "भूतिया शादी और पिंटू",
@@ -601,9 +706,13 @@
           pageNum: p,
           heading: `पेज ${p}: ${t} का दृश्य`,
           mood: mood,
+          sfx: (p >= 6) ? "spooky" : "chime",
           img: `https://image.pollinations.ai/prompt/${encodeURIComponent(t + " scene " + p + " funny cartoon comic visual")}?width=750&height=400&nologo=true`,
-          dialogue: p === 7 ? "अब खेल खत्म, सच सामने आ चुका है!" : `दृश्य ${p}: अरे यह क्या हो रहा है?!`,
-          story: `${t} के इस भाग में रोमांच और हास्य अपने चरम पर पहुँचता है। किरदार कदम-दर-कदम अनसुलझे रहस्य की गहराई में उतरते हैं।`
+          story: `${t} के इस रोमांचक मोड़ पर रहस्य और हास्य अपने चरम पर पहुँचता है।`,
+          dialogues: [
+            { speaker: "male", name: "नायक", text: `अरे यह क्या हो रहा है?! मुझे कुछ समझ नहीं आ रहा!` },
+            { speaker: (p >= 6 ? "ghost" : "female"), name: (p >= 6 ? "साया" : "साथी"), text: `आगे मत बढ़ो, खेल तो अब शुरू हुआ है!` }
+          ]
         });
       }
 
@@ -616,7 +725,7 @@
         price: "मुफ़्त",
         pagesCount: 7,
         img: `https://image.pollinations.ai/prompt/${encodeURIComponent(t + " colorful cartoon comic cover art")}?width=500&height=350&nologo=true`,
-        badge: "7-पेज सचित्र कॉमिक",
+        badge: "लाइव डायलॉग ड्रामा",
         pages: pgs,
         suspense: `क्लाइमेक्स पर एक बड़ा धमाका होता है और रहस्य का ताला लग जाता है! क्या होगा आगे? जानिए भाग 2 में!`
       });
@@ -658,7 +767,6 @@
       lucide.createIcons();
     }
 
-    // Category Filter Handler
     function filterCategory(cat, btn) {
       if(btn) {
         document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
@@ -666,7 +774,7 @@
       }
       const titles = {
         all: "सभी पुस्तकें एवं कॉमिक्स",
-        comics: "🎨 सभी 20 कॉमिक्स (ऑडियो + ऑटो BGM)",
+        comics: "🎨 सभी 20 कॉमिक्स (लाइव डायलॉग ड्रामा)",
         selfhelp: "🧘 आत्मविकास ई-बुक्स",
         career: "💼 करियर व नौकरी गाइड",
         finance: "💰 पैसे और बचत",
@@ -676,7 +784,7 @@
       renderStore(cat);
     }
 
-    // Reader & Audio State
+    // Reader & Voice Engine
     let activeBook = null;
     let currentPageIndex = 0;
 
@@ -686,7 +794,7 @@
 
       currentPageIndex = 0;
       document.getElementById('readerBookTitle').innerText = activeBook.title;
-      renderCurrentPage(false); // don't auto play immediately on open
+      renderCurrentPage(false);
       openModal('multiPageReaderModal');
     }
 
@@ -695,11 +803,7 @@
       const p = activeBook.pages[currentPageIndex];
       const totalPages = activeBook.pages.length;
 
-      // Clear any pending page transition timer
-      if (autoFlipTimeout) {
-        clearTimeout(autoFlipTimeout);
-        autoFlipTimeout = null;
-      }
+      stopVoiceAndBGM();
 
       document.getElementById('readerChapterTitle').innerText = p.heading;
       document.getElementById('pageNumberPill').innerText = `पेज ${currentPageIndex + 1} / ${totalPages}`;
@@ -715,10 +819,20 @@
       }
 
       document.getElementById('comicPageImage').src = p.img;
-      document.getElementById('comicSpeechBubble').innerText = `💬 "${p.dialogue}"`;
       document.getElementById('comicStoryText').innerText = p.story;
 
-      // Suspense box shown only on last page
+      // Render Multi-Character Dialogue Clouds
+      const container = document.getElementById('dialoguesContainer');
+      container.innerHTML = "";
+      p.dialogues.forEach((dlg, dIdx) => {
+        const dBox = document.createElement('div');
+        dBox.id = `dlg_box_${dIdx}`;
+        dBox.className = `speech-dialogue-cloud speaker-${dlg.speaker}`;
+        const icon = (dlg.speaker === 'female') ? '👩' : (dlg.speaker === 'ghost' ? '💀' : '👦');
+        dBox.innerHTML = `<span>${icon} <strong>${dlg.name}:</strong> "${dlg.text}"</span>`;
+        container.appendChild(dBox);
+      });
+
       const suspenseBox = document.getElementById('suspenseEndingBox');
       if(currentPageIndex === totalPages - 1) {
         suspenseBox.style.display = 'block';
@@ -727,7 +841,6 @@
         suspenseBox.style.display = 'none';
       }
 
-      // Prev / Next button states
       document.getElementById('btnPrevPage').disabled = (currentPageIndex === 0);
       const nextBtn = document.getElementById('btnNextPage');
       if(currentPageIndex === totalPages - 1) {
@@ -739,7 +852,6 @@
       }
       lucide.createIcons();
 
-      // If user activated audio, continue speaking this page and setup auto-flip to next
       if (continuePlaying && isAudioPlaying) {
         playVoiceAndBGM();
       }
@@ -754,7 +866,6 @@
       }
     }
 
-    // Toggle Voice + Dynamic BGM
     function toggleAudioWithBGM() {
       if (isAudioPlaying) {
         stopVoiceAndBGM();
@@ -764,6 +875,7 @@
       }
     }
 
+    // LIVE SEQUENTIAL MULTI-VOICE DRAMA (Narrator -> Character 1 -> Character 2)
     function playVoiceAndBGM() {
       if(!activeBook || !activeBook.pages) return;
       const p = activeBook.pages[currentPageIndex];
@@ -776,39 +888,86 @@
         btn.style.color = "#fff";
       }
 
-      // Start the matching BGM (Funny or Suspense)
+      // Trigger SFX matching the scene
+      if (p.sfx === 'slam') playDoorSlamSFX();
+      else if (p.sfx === 'spooky') playSpookyWindSFX();
+      else playComicChimeSFX();
+
+      // Start Adaptive Ambient BGM
       startAdaptiveBGM(p.mood || 'funny');
 
-      // Play Speech Voice with Automatic Next-Page Flip Callback
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const text = `${p.heading}। संवाद: ${p.dialogue}। कहानी: ${p.story}`;
-        const ut = new SpeechSynthesisUtterance(text);
-        ut.lang = 'hi-IN';
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+
+      const voices = window.speechSynthesis.getVoices();
+      const hiVoice = voices.find(v => v.lang.startsWith('hi')) || null;
+
+      // 1. Narrator starts (Female/Crisp tone)
+      const uNarrator = new SpeechSynthesisUtterance(`${p.heading}। ${p.story}`);
+      uNarrator.lang = 'hi-IN';
+      if (hiVoice) uNarrator.voice = hiVoice;
+      uNarrator.pitch = 1.25; // Clear female narrator
+      uNarrator.rate = 1.0;
+
+      // Chain dialogues sequentially with matching character voices
+      function speakDialogueIndex(dIdx) {
+        if (!isAudioPlaying) return;
         
-        ut.onend = () => {
-          if (!isAudioPlaying) return;
-          
-          // Check if there are more pages to read
+        // Remove previous active glow
+        document.querySelectorAll('.speech-dialogue-cloud').forEach(el => el.classList.remove('active-speaking'));
+
+        if (dIdx < p.dialogues.length) {
+          const dlg = p.dialogues[dIdx];
+          const targetBox = document.getElementById(`dlg_box_${dIdx}`);
+          if (targetBox) targetBox.classList.add('active-speaking');
+
+          const uDlg = new SpeechSynthesisUtterance(`${dlg.name} कहते हैं: ${dlg.text}`);
+          uDlg.lang = 'hi-IN';
+          if (hiVoice) uDlg.voice = hiVoice;
+
+          // Distinctive Character Voices
+          if (dlg.speaker === 'female') {
+            uDlg.pitch = 1.4; // Melodious Female Voice
+            uDlg.rate = 1.05;
+          } else if (dlg.speaker === 'ghost') {
+            uDlg.pitch = 0.45; // Deep Creepy Ghost Voice
+            uDlg.rate = 0.85;
+          } else {
+            uDlg.pitch = 0.75; // Expressive Male Hero Voice
+            uDlg.rate = 1.05;
+          }
+
+          uDlg.onend = () => {
+            if (targetBox) targetBox.classList.remove('active-speaking');
+            speakDialogueIndex(dIdx + 1);
+          };
+
+          window.speechSynthesis.speak(uDlg);
+        } else {
+          // All dialogues completed -> Auto flip to next page
           if (currentPageIndex < totalPages - 1) {
-            // Wait 1.5 seconds naturally, then flip to the next page automatically!
             autoFlipTimeout = setTimeout(() => {
               if (isAudioPlaying) {
                 currentPageIndex++;
-                renderCurrentPage(true); // render next page and continue auto-playing!
+                renderCurrentPage(true);
               }
-            }, 1500);
+            }, 1400);
           } else {
-            // Reached final page (page 7)
             autoFlipTimeout = setTimeout(() => {
               stopVoiceAndBGM();
-              alert("भाग 1 की संपूर्ण ऑडियो कहानी समाप्त हुई! भाग 2 जल्द आ रहा है।");
+              alert("भाग 1 की लाइव ऑडियो ड्रामा समाप्त हुई! भाग 2 जल्द आ रहा है।");
             }, 2000);
           }
-        };
-
-        window.speechSynthesis.speak(ut);
+        }
       }
+
+      uNarrator.onend = () => {
+        if (isAudioPlaying) {
+          speakDialogueIndex(0);
+        }
+      };
+
+      window.speechSynthesis.speak(uNarrator);
     }
 
     function stopVoiceAndBGM() {
@@ -821,22 +980,25 @@
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
       }
+      document.querySelectorAll('.speech-dialogue-cloud').forEach(el => el.classList.remove('active-speaking'));
       const btn = document.getElementById('btnPlayAudio');
       if (btn) {
-        btn.innerHTML = "🎧 सुनें (ऑटो-टर्न)";
+        btn.innerHTML = "🎧 सुनें (लाइव डायलॉग)";
         btn.style.background = "#f59e0b";
         btn.style.color = "#000";
       }
     }
 
-    // Modal Controls
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+    }
+
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { 
       document.getElementById(id).style.display = 'none';
       stopVoiceAndBGM();
     }
 
-    // Admin Access Gate
     function openAdminGate() {
       const pin = prompt("मास्टर एडमिन पिन दर्ज करें:");
       if(pin === "1234") {
@@ -864,7 +1026,7 @@
         title: title,
         author: author || "अक्षर एडमिन",
         price: price || "मुफ़्त",
-        badge: "नई प्रस्तुति",
+        badge: "लाइव डायलॉग ड्रामा",
         img: `https://image.pollinations.ai/prompt/${encodeURIComponent(title + " cover art")}?width=500&height=350&nologo=true`,
         pages: champak7Pages,
         suspense: "रहस्य जल्द ही खुलेगा..."
