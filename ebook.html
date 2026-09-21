@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>अक्षर — पुद्देश और रहस्यमयी डिब्बा</title>
+
+  <meta name="description"
+        content="अक्षर — इंटरैक्टिव डिजिटल ई-बुक और ऑडियो कहानी।">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ==============================
+       HEADER
+  =============================== -->
+  <header class="ebook-header">
+
+    <a href="index.html" class="back-btn">
+      ← अक्षर
+    </a>
+
+    <div class="book-title">
+      <span>अक्षर</span>
+      <small>Digital Story</small>
+    </div>
+
+    <button id="menuBtn" class="icon-btn" aria-label="Menu">
+      ☰
+    </button>
+
+  </header>
+
+
+  <!-- ==============================
+       MAIN EBOOK
+  =============================== -->
+  <main class="ebook-container">
+
+    <!-- Book information -->
+    <section class="book-info">
+
+      <div>
+        <span class="book-badge">INTERACTIVE E-BOOK</span>
+
+        <h1 id="storyTitle">
+          पुद्देश और रहस्यमयी डिब्बा
+        </h1>
+
+        <p id="pageCounter">
+          पेज 1 / 10
+        </p>
+      </div>
+
+    </section>
+
+
+    <!-- ==============================
+         BOOK PAGE
+    =============================== -->
+
+    <section
+      id="bookStage"
+      class="book-stage"
+      aria-label="E-book page"
+    >
+
+      <div class="book-page">
+
+        <!-- Story illustration -->
+        <div class="page-image-wrapper">
+
+          <img
+            id="pageImage"
+            src="assets/images/page1.webp"
+            alt="कहानी का दृश्य"
+            draggable="false"
+          >
+
+        </div>
+
+
+        <!-- Page text -->
+        <div class="page-content">
+
+          <h2 id="pageTitle">
+            रहस्यमयी डिब्बा
+          </h2>
+
+          <p id="pageText">
+            एक सुबह पुद्देश की जिंदगी में कुछ ऐसा हुआ,
+            जिसने एक रहस्यमयी सफर की शुरुआत कर दी...
+          </p>
+
+
+          <!-- Dialogue -->
+          <div
+            id="dialogueBox"
+            class="dialogue-box"
+          >
+            <div
+              id="characterName"
+              class="character-name"
+            >
+              पुद्देश
+            </div>
+
+            <div
+              id="dialogueText"
+              class="dialogue-text"
+            >
+              आज कुछ अजीब लग रहा है...
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==============================
+         PAGE CONTROLS
+    =============================== -->
+
+    <section class="page-controls">
+
+      <button
+        id="previousBtn"
+        class="control-btn"
+        type="button"
+      >
+        ← पिछला
+      </button>
+
+      <div class="page-number">
+        <span id="currentPage">1</span>
+        <span>/</span>
+        <span id="totalPages">10</span>
+      </div>
+
+      <button
+        id="nextBtn"
+        class="control-btn primary"
+        type="button"
+      >
+        अगला →
+      </button>
+
+    </section>
+
+
+    <!-- ==============================
+         AUDIO PLAYER
+    =============================== -->
+
+    <section class="audio-panel">
+
+      <div class="audio-heading">
+
+        <div>
+          <strong>🎧 ऑडियो कहानी</strong>
+          <small id="audioStatus">
+            ऑडियो तैयार है
+          </small>
+        </div>
+
+        <button
+          id="audioToggle"
+          class="audio-toggle"
+          type="button"
+        >
+          🔊
+        </button>
+
+      </div>
+
+
+      <div class="audio-controls">
+
+        <button
+          id="playAudioBtn"
+          type="button"
+          class="audio-btn"
+        >
+          ▶ चलाएँ
+        </button>
+
+        <button
+          id="pauseAudioBtn"
+          type="button"
+          class="audio-btn"
+        >
+          ⏸ रोकें
+        </button>
+
+        <button
+          id="stopAudioBtn"
+          type="button"
+          class="audio-btn"
+        >
+          ■ बंद
+        </button>
+
+      </div>
+
+
+      <!-- Voice volume -->
+
+      <div class="volume-control">
+
+        <label for="voiceVolume">
+          🎙️ आवाज़
+        </label>
+
+        <input
+          id="voiceVolume"
+          type="range"
+          min="0"
+          max="1"
+          step="0.05"
+          value="1"
+        >
+
+      </div>
+
+
+      <!-- Music volume -->
+
+      <div class="volume-control">
+
+        <label for="musicVolume">
+          🎵 Music
+        </label>
+
+        <input
+          id="musicVolume"
+          type="range"
+          min="0"
+          max="1"
+          step="0.05"
+          value="0.35"
+        >
+
+      </div>
+
+
+      <!-- Auto Story -->
+
+      <button
+        id="autoStoryBtn"
+        class="auto-story-btn"
+        type="button"
+      >
+        ▶ Auto Story शुरू करें
+      </button>
+
+    </section>
+
+
+    <!-- ==============================
+         PAGE DOTS
+    =============================== -->
+
+    <div
+      id="pageDots"
+      class="page-dots"
+      aria-label="Page navigation"
+    >
+    </div>
+
+
+    <!-- ==============================
+         MOBILE SWIPE MESSAGE
+    =============================== -->
+
+    <p class="swipe-help">
+      📱 मोबाइल पर कहानी बदलने के लिए बाएँ या दाएँ Swipe करें
+    </p>
+
+  </main>
+
+
+  <!-- ==============================
+       AUDIO ELEMENTS
+  =============================== -->
+
+  <audio
+    id="voiceAudio"
+    preload="auto"
+  ></audio>
+
+  <audio
+    id="musicAudio"
+    preload="auto"
+    loop
+  ></audio>
+
+  <audio
+    id="sfxAudio"
+    preload="auto"
+  ></audio>
+
+
+  <!-- ==============================
+       JAVASCRIPT
+  =============================== -->
+
+  <script src="app.js"></script>
+
+</body>
+</html>
